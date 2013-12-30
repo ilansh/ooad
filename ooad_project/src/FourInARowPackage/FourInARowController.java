@@ -1,8 +1,17 @@
 package FourInARowPackage;
 
-public class FourInARowController {
+import java.util.ArrayList;
 
-	private FourInARowModel _model;
+public abstract class FourInARowController {
+
+	protected FourInARowModel _model;
+	protected ArrayList<FourInARowView> _views;
+	// TODO _players = strategy
 	
 	
+	abstract public void showMenu();
+	
+	public void gameLoop(){
+		
+	}
 }

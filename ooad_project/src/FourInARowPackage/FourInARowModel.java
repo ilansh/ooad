@@ -29,9 +29,9 @@ public class FourInARowModel extends Observable{
 		_discsNum++;
 		
 		//notify observers(views)
-		int cell[]= {row, col};
+//		int cell[]= {row, col}; //TODO: send all the board or just the cell
 		setChanged();
-		notifyObservers(cell);
+		notifyObservers(getBoard()); //TODO: send copy or real
 	
 		if (isWinner(col, row, playerNum)){
 			return 1; 
