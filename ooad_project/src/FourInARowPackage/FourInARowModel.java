@@ -1,13 +1,19 @@
 package FourInARowPackage;
 
-import java.io.ObjectInputStream.GetField;
 import java.util.Observable;
 
 public class FourInARowModel extends Observable{
 
 	// CONSTANTS
+
+	private static final int WIN_COUNT = 4;
+	public static enum GameStatus {
+		WIN, DRAW, CONTINUE
+	}
 	
-	private static final int WIN = 4;
+	
+	
+	
 	// MEMBERS
 	private int [][] _board;
 	private int _cols;
@@ -23,7 +29,16 @@ public class FourInARowModel extends Observable{
 		_board = new int[rows][cols];
 	}
 	
-	public int addDisc(int col, int playerNum) throws ColumnFullException{
+	/**
+	 * 
+	 * @param col
+	 * @param playerNum
+	 * @return
+	 * @throws ColumnFullException
+	 */
+	public GameStatus addDisc(int col, int playerNum) throws ColumnFullException , ColumnOutOfRangeException{ //TODO: exception heirarchy
+		isColOutOfRange(col);
+		
 		int row = firstEmptyRow(col);
 		_board[row][col] = playerNum;
 		_discsNum++;
@@ -33,14 +48,14 @@ public class FourInARowModel extends Observable{
 		setChanged();
 		notifyObservers(getBoard()); //TODO: send copy or real
 	
-		if (isWinner(col, row, playerNum)){
-			return 1; 
+		if (isWinner(_board, col, row, playerNum)){
+			return GameStatus.WIN; 
 		}
 		else if (isBoardFull()){
-			return -1;
+			return GameStatus.DRAW;
 		}
 		else{
-			return 0;
+			return GameStatus.CONTINUE;
 		}
 	}
 	
@@ -55,44 +70,51 @@ public class FourInARowModel extends Observable{
 	}
 	
 	
+	public int getNumRows() {
+		return _rows;
+	}
 	
-	// PRIVATE METHODS
+	public int getNumCols() {
+		return _cols;
+	}
+	
+	
 
 	//TODO optimize
-	public boolean isWinner(int col, int row, int playerNum){
+	public boolean isWinner(int[][] board, int col, int row, int playerNum){
 		int count = 1;
 
 		// horizontal right
 		for (int i=col+1; i < _cols; i++) {
-			if (_board[row][i]==playerNum)
+			if (board[row][i]==playerNum)
 				count++;
 			else break;
 		}
-		if (count >= WIN) return true; // won horizontally
+		if (count >= WIN_COUNT) return true; // won horizontally
 		// keep counting horizontal left
 		for (int i=col-1; i >=0; i--) {
-			if (_board[row][i]==playerNum) 
+			if (board[row][i]==playerNum) 
 				count++;
 			else break;
 		}
-		if (count >= WIN) return true; // won horizontally
+		if (count >= WIN_COUNT) return true; // won horizontally
 
 		count = 1;
 		// vertical down
 		for (int i=row+1; i < _rows; i++) {
-			if (_board[i][col]==playerNum)
+			if (board[i][col]==playerNum)
 				count++;
 			else break;
 		}
-		if (count >= WIN) return true; // won vertical
+		if (count >= WIN_COUNT) return true; // won vertical
 		// keep counting vertical up
 		for (int i=row-1; i >=0; i--) {
-			if (_board[i][col]==playerNum) 
+			if (board[i][col]==playerNum) 
 				count++;
 			else
 				break;
 		}
-		if (count >= WIN) return true; // won vertical
+		if (count >= WIN_COUNT) return true; // won vertical
 
 		// first diagonal:  /
 		count = 1;
@@ -100,24 +122,24 @@ public class FourInARowModel extends Observable{
 		int kol = col+1;
 		for (int i=row-1; i >= 0; i--) {
 			if (kol>=_cols) break; // we reached the end of the _board right side
-			if (_board[i][kol]==playerNum)
+			if (board[i][kol]==playerNum)
 				count++;
 			else 
 				break;
 			kol++;
 		}
-		if (count >= WIN) return true;
+		if (count >= WIN_COUNT) return true;
 		// keep counting down
 		kol = col-1;
 		for (int i=row+1; i < _rows; i++) {
 			if (kol<0) break; // we reached the end of the _board left side
-			if (_board[i][kol]==playerNum) 
+			if (board[i][kol]==playerNum) 
 				count++;
 			else
 				break;
 			kol--;
 		}
-		if (count >= WIN) return true; // won diagonal "/"
+		if (count >= WIN_COUNT) return true; // won diagonal "/"
 
 		// second diagonal : \
 		count = 1;
@@ -125,27 +147,29 @@ public class FourInARowModel extends Observable{
 		kol = col-1;
 		for (int i=row-1; i >= 0; i--) {
 			if (kol<0) break; // we reached the end of the _board left side
-			if (_board[i][kol]==playerNum)
+			if (board[i][kol]==playerNum)
 				count++;
 			else 
 				break;
 			kol--;
 		}
-		if (count >= WIN) return true; // won diagonal "\"
+		if (count >= WIN_COUNT) return true; // won diagonal "\"
 		// keep counting down
 		kol = col+1;
 		for (int i=row+1; i < _rows; i++) {
 			if (kol>=_cols) break; // we reached the end of the _board right side
-			if (_board[i][kol]==playerNum) 
+			if (board[i][kol]==playerNum) 
 				count++;
 			else
 				break;
 			kol++;
 		}
-		if (count >= WIN) return true; // won diagonal "\"
+		if (count >= WIN_COUNT) return true; // won diagonal "\"
 
 		return false;
 	}
+
+	// PRIVATE METHODS
 	
 	private boolean isBoardFull(){
 		if (_discsNum == _cols*_rows){
@@ -163,6 +187,10 @@ public class FourInARowModel extends Observable{
 		throw new ColumnFullException(); 
 	}
 	
-	
+	private void isColOutOfRange(int col) throws ColumnOutOfRangeException {
+		if(col < 0 || col > _cols) {
+			throw new ColumnOutOfRangeException();
+		}
+	}
 }
 

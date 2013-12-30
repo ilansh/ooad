@@ -15,6 +15,12 @@ public class SimpleFourInARowController extends FourInARowController{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	protected void printInitMenu() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }
