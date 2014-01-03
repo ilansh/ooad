@@ -1,8 +1,8 @@
 package FourInARowPackage;
 
-public class Disc2Graphic implements GameGraphic {
-
-	private static final char DISC2_GRAPHIC = 'o';
+public class CellGraphic implements GameGraphic {
+	
+	private static final char DISC1_GRAPHIC = 'x';
 	
 	@Override
 	public void setLocation(int x, int y) {
@@ -12,10 +12,7 @@ public class Disc2Graphic implements GameGraphic {
 
 	@Override
 	public void drawGraphic(int[][] board) {
-		System.out.print(DISC2_GRAPHIC);
+		System.out.print(DISC1_GRAPHIC);
 		
 	}
-
-
-
 }
