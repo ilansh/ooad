@@ -5,11 +5,15 @@ import java.util.Scanner;
 
 public class HumanStrategy implements PlayerStrategy{
 
+	Scanner _humanInput;
+	
+	public HumanStrategy() {
+		_humanInput = new Scanner(System.in);
+	}
+	
 	@Override
 	public int makeMove(FourInARowModel model) {
-		Scanner terminalInput = new Scanner(System.in);
-		int col = Integer.parseInt(terminalInput.nextLine());
-		terminalInput.close();
+		int col = Integer.parseInt(_humanInput.nextLine());
 		return col;
 	}
 	

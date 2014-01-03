@@ -31,7 +31,7 @@ public class BoardGraphic extends CompositeGraphic {
 				if(board[i][j] == 1) {
 					_disc1.drawGraphic(board);
 				}
-				else if(board[i][i] == 2) {
+				else if(board[i][j] == 2) {
 					_disc2.drawGraphic(board);
 				}
 				else {
@@ -42,8 +42,9 @@ public class BoardGraphic extends CompositeGraphic {
 			System.out.println();
 		}
 		for(int i = 0; i < board[0].length; i++) {
-			System.out.print(BOARD_BOTTOM);
+			System.out.print( " " + BOARD_BOTTOM);
 		}
+		System.out.println();
 	}
 
 }

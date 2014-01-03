@@ -3,7 +3,7 @@ package FourInARowPackage;
 import java.util.Observable;
 import java.util.Observer;
 
-public class FourInARowView implements Observer{
+public class FourInARowView implements Observer{ //TODO: maybe singleton
 
 	private CompositeGraphic _gameView;
 	

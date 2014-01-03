@@ -2,7 +2,11 @@ package FourInARowPackage;
 
 public class CellGraphic implements GameGraphic {
 	
-	private static final char DISC1_GRAPHIC = 'x';
+	private char _cellContent;
+	
+	public CellGraphic(char cellContent) {
+		_cellContent = cellContent;
+	}
 	
 	@Override
 	public void setLocation(int x, int y) {
@@ -12,7 +16,7 @@ public class CellGraphic implements GameGraphic {
 
 	@Override
 	public void drawGraphic(int[][] board) {
-		System.out.print(DISC1_GRAPHIC);
+		System.out.print(_cellContent);
 		
 	}
 }

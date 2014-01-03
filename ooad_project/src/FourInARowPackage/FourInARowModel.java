@@ -179,7 +179,7 @@ public class FourInARowModel extends Observable{
 	}
 	
 	private int firstEmptyRow(int col) throws ColumnFullException{
-		for (int i=0; i<_board.length; i++){
+		for (int i = _rows - 1; i >= 0; i--){
 			if (_board[i][col] == 0){
 				return i;
 			}
