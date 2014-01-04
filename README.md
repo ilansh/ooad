@@ -2,4 +2,6 @@ ooad
 ====
 
 ooad final project
-HELLLOOOOOO
+
+- Can implement decorator using composite with board.
+- observer pull when initializing and push during the game.

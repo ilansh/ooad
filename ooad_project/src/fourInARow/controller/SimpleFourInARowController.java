@@ -1,7 +1,13 @@
-package FourInARowPackage;
+package fourInARow.controller;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import fourInARow.excpetion.ColumnFullException;
+import fourInARow.excpetion.ColumnOutOfRangeException;
+import fourInARow.model.FourInARowModel;
+import fourInARow.model.FourInARowModel.GameStatus;
+import fourInARow.view.FourInARowView;
 
 public class SimpleFourInARowController extends FourInARowController{
 	
@@ -17,7 +23,6 @@ public class SimpleFourInARowController extends FourInARowController{
 		_model = model;
 		_views = new ArrayList<FourInARowView>();
 		addView(view);
-//		_model.notifyObservers(_model.getBoard());
 		_players = new ArrayList<PlayerStrategy>(NUM_OF_PLAYERS);
 	}
 	
@@ -27,14 +32,13 @@ public class SimpleFourInARowController extends FourInARowController{
 		for(int i = 0; i < views.size(); i++) {
 			addView(views.get(i));
 		}
-//		_model.notifyObservers(_model.getBoard());
 	}
 
-	@Override
-	public void showMenu() {
-		// TODO Auto-generated method stub
-		
-	}
+//	@Override
+//	public void showMenu() {
+//		// TODO Auto-generated method stub
+//		
+//	}
 
 	@Override
 	protected void printInitMenu() {
@@ -70,7 +74,7 @@ public class SimpleFourInARowController extends FourInARowController{
 		} while (gameStatus == FourInARowModel.GameStatus.CONTINUE);
 		
 		if (gameStatus == FourInARowModel.GameStatus.WIN){
-			_players.get((currentPlayer + 1) % NUM_OF_PLAYERS).printWinMessage((currentPlayer + 1) % NUM_OF_PLAYERS);
+			_players.get((currentPlayer + 1) % NUM_OF_PLAYERS).printWinMessage((currentPlayer + 1) % NUM_OF_PLAYERS + 1);
 		}
 		else if (gameStatus == FourInARowModel.GameStatus.DRAW){ //TODO erase
 			System.out.print("Board is full! game has ended with a tie!");

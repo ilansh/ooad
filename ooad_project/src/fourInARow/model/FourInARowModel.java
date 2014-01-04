@@ -1,6 +1,7 @@
-package FourInARowPackage;
+package fourInARow.model;
 
 import java.util.Observable;
+import fourInARow.excpetion.*;
 
 public class FourInARowModel extends Observable{
 
@@ -27,7 +28,11 @@ public class FourInARowModel extends Observable{
 		_rows = rows;
 		_discsNum = 0;
 		_board = new int[rows][cols];
+
 	}
+	
+	
+	
 	
 	/**
 	 * 
@@ -43,7 +48,6 @@ public class FourInARowModel extends Observable{
 		_board[row][col] = playerNum;
 		_discsNum++;
 		
-		//notify observers(views)
 //		int cell[]= {row, col}; //TODO: send all the board or just the cell
 		setChanged();
 		notifyObservers(getBoard()); //TODO: send copy or real

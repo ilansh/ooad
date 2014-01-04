@@ -1,4 +1,6 @@
-package FourInARowPackage;
+package fourInARow.controller;
+
+import fourInARow.model.FourInARowModel;
 
 public class SimpleComputerStrategy implements PlayerStrategy
 {

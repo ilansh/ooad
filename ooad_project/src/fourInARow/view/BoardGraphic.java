@@ -1,4 +1,5 @@
-package FourInARowPackage;
+package fourInARow.view;
+
 
 public class BoardGraphic extends CompositeGraphic {
 

@@ -1,7 +1,8 @@
-package FourInARowPackage;
+package fourInARow.view;
 
 import java.util.Observable;
 import java.util.Observer;
+import fourInARow.excpetion.*;
 
 public class FourInARowView implements Observer{ //TODO: maybe singleton
 
@@ -14,9 +15,7 @@ public class FourInARowView implements Observer{ //TODO: maybe singleton
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println("Model has changed");
 		_gameView.drawGraphic((int[][])arg); //TODO: is it ok???!???!??
-		
 	}
 	
 //	public void showView(){

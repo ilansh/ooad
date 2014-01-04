@@ -1,4 +1,4 @@
-package FourInARowPackage;
+package fourInARow.view;
 
 import java.util.ArrayList;
 

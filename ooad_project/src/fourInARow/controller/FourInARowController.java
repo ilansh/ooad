@@ -1,7 +1,13 @@
-package FourInARowPackage;
+
+package fourInARow.controller;
 
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.Scanner;
+
+import fourInARow.model.FourInARowModel;
+import fourInARow.view.FourInARowView;
+import fourInARow.excpetion.*;
 
 public abstract class FourInARowController {
 
@@ -12,7 +18,7 @@ public abstract class FourInARowController {
 	protected ArrayList<PlayerStrategy> _players;
 	
 	
-	protected abstract void showMenu();
+//	protected abstract void showMenu();
 	
 	protected abstract void printInitMenu();
 	
@@ -33,11 +39,9 @@ public abstract class FourInARowController {
 		
 	}
 	
-	public void removeView() { //TODO:
-		
+	public void removeView(FourInARowView view) {
+		_views.remove(view);
+		_model.deleteObserver(view);
 	}
-	
-	
-
 		
 }

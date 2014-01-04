@@ -1,6 +1,8 @@
-package FourInARowPackage;
+package fourInARow.controller;
 
 import java.util.Scanner;
+
+import fourInARow.model.FourInARowModel;
 
 
 public class HumanStrategy implements PlayerStrategy{
