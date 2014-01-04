@@ -19,11 +19,15 @@ public class SimpleFourInARowController extends FourInARowController{
 	private static final int NUM_OF_PLAYERS = 2;
 	
 	
+	
+	private Scanner _terminalInput;
+	
 	public SimpleFourInARowController(FourInARowModel model, FourInARowView view){
 		_model = model;
 		_views = new ArrayList<FourInARowView>();
 		addView(view);
 		_players = new ArrayList<PlayerStrategy>(NUM_OF_PLAYERS);
+		_terminalInput = new Scanner(System.in);
 	}
 	
 	public SimpleFourInARowController(FourInARowModel model, ArrayList<FourInARowView> views){
@@ -34,42 +38,68 @@ public class SimpleFourInARowController extends FourInARowController{
 		}
 	}
 
-//	@Override
-//	public void showMenu() {
-//		// TODO Auto-generated method stub
-//		
-//	}
-
-	@Override
-	protected void printInitMenu() {
+	private void printInitMenu() {
 		System.out.println(Integer.toString(QUIT_KEY) + ". Exit");
 		System.out.println(Integer.toString(VS_HUMAN_KEY) + ". Play against a friend");
 		System.out.println(Integer.toString(VS_COMPUTER_KEY) + ". Play against the computer");
 		System.out.print("Please choose an option:");
 	}
 	
+	private void chooseGameType() {
+		int choice = QUIT_KEY;
+		printInitMenu();
+		try {
+			choice = Integer.parseInt(_terminalInput.nextLine());
+		    while(choice != QUIT_KEY && choice != VS_HUMAN_KEY && choice != VS_COMPUTER_KEY)
+		    {
+				 System.out.println("Input incorrect! Please try again.");
+				 printInitMenu();
+				 choice = Integer.parseInt(_terminalInput.nextLine());
+		    }
+		}
+		catch (NumberFormatException nfe) {
+			System.out.println("Illegal choice");
+		}
+		
+		
+		_players.add(0, new HumanStrategy());
+		if (choice == VS_HUMAN_KEY){
+			_players.add(0, new HumanStrategy());
+		}
+		else if (choice == VS_COMPUTER_KEY){
+			_players.add(1, new SimpleComputerStrategy());
+		}
+		else if (choice == QUIT_KEY){
+			System.out.println("Bye bye!");
+			_terminalInput.close();
+			System.exit(0); //TODO: organized exit
+		}
+	}
 	
-	public void gameLoop(){
-		Scanner terminalInput = new Scanner(System.in);
-		chooseGameType(terminalInput);
+	
+	public void gameLoop() {
+		chooseGameType();
 		initViews();
 		FourInARowModel.GameStatus gameStatus = FourInARowModel.GameStatus.CONTINUE;
 		int currentPlayer = 0;
 		int col;
 		
 		do {
-			System.out.print("Player " + Integer.toString(currentPlayer + 1) + ", choose a column: "); //TODO move to other location
+			_players.get(currentPlayer).printMoveMessage(currentPlayer + 1);
 			try {
-				col = _players.get(currentPlayer % NUM_OF_PLAYERS).makeMove(_model); // TODO: no exception handling...
-				gameStatus =  _model.addDisc(col, currentPlayer + 1);
+				col = _players.get(currentPlayer % NUM_OF_PLAYERS).makeMove(_model);
+				gameStatus = _model.addDisc(col, currentPlayer + 1);
 				currentPlayer ++;
 				currentPlayer %= NUM_OF_PLAYERS;
 			}
 			catch(ColumnFullException cfe) {
-				//TODO: handle
+				System.out.println("Column is full");
 			}
 			catch(ColumnOutOfRangeException coore) {
-				//TODO: handle
+				System.out.println("Column out of range");
+			}
+			catch(NumberFormatException nfe) { //makemove by human
+				System.out.println("illegal column format");
 			}
 		} while (gameStatus == FourInARowModel.GameStatus.CONTINUE);
 		
@@ -81,30 +111,5 @@ public class SimpleFourInARowController extends FourInARowController{
 		}
 		
 	}
-	
-	
-	protected void chooseGameType(Scanner terminalInput) {
-		int choice;
-		printInitMenu();
-		choice = Integer.parseInt(terminalInput.nextLine());
-		System.out.println(choice);
-	    while(choice != QUIT_KEY && choice != VS_HUMAN_KEY && choice != VS_COMPUTER_KEY)
-	    {
-			 System.out.println("Input incorrect! Please try again.");
-			 printInitMenu();
-			 choice = Integer.parseInt(terminalInput.nextLine());
-	    }
-		
-		_players.add(0, new HumanStrategy());
-		if (choice == VS_HUMAN_KEY){
-			_players.add(0, new HumanStrategy());
-		}
-		else if (choice == VS_COMPUTER_KEY){
-			_players.add(1, new SimpleComputerStrategy());
-		}
-		else if (choice == QUIT_KEY){
-			System.exit(0); //TODO: organized exit
-		}
-	}
-	
+
 }

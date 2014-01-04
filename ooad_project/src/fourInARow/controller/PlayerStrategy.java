@@ -8,4 +8,6 @@ public interface PlayerStrategy {
 	
 	public void printWinMessage(int playerNum);
 	
+	public void printMoveMessage(int playerNum);
+	
 }

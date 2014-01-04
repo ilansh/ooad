@@ -75,4 +75,9 @@ public class SimpleComputerStrategy implements PlayerStrategy
 		System.out.println("Game has ended! The computer won!");
 	}
 
+	@Override
+	public void printMoveMessage(int playerNum) {
+		System.out.println("Computer makes a move:");
+	}
+
 }

@@ -22,12 +22,10 @@ public class FourInARowView implements Observer{ //TODO: maybe singleton
 //		_gameView.drawGraphic();
 //	}
 	
-	public void showMenu(){
-		
-	}
+//	public void showMenu(){
+//		
+//	}
 	
-	
-
 	
 	
 	
