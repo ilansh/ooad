@@ -8,9 +8,6 @@ public class FourInARowModel extends Observable{
 	// CONSTANTS
 
 	private static final int WIN_COUNT = 4;
-	public static enum GameStatus {
-		WIN, DRAW, CONTINUE
-	}
 	
 	
 	
@@ -20,6 +17,7 @@ public class FourInARowModel extends Observable{
 	private int _cols;
 	private int _rows;
 	private int _discsNum;
+	private GameStatus _gameStatus;
 	
 	// PUBLIC METHODS
 	
@@ -28,6 +26,7 @@ public class FourInARowModel extends Observable{
 		_rows = rows;
 		_discsNum = 0;
 		_board = new int[rows][cols];
+		_gameStatus = GameStatus.ONGOING;
 
 	}
 	
@@ -58,9 +57,7 @@ public class FourInARowModel extends Observable{
 		else if (isBoardFull()){
 			return GameStatus.DRAW;
 		}
-		else{
-			return GameStatus.CONTINUE;
-		}
+		return GameStatus.ONGOING;
 	}
 	
 	public int [][] getBoard(){
@@ -192,7 +189,7 @@ public class FourInARowModel extends Observable{
 	}
 	
 	private void isColOutOfRange(int col) throws ColumnOutOfRangeException {
-		if(col < 0 || col > _cols) {
+		if(col < 0 || col >= _cols) {
 			throw new ColumnOutOfRangeException();
 		}
 	}

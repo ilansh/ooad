@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Scanner;
 
-import fourInARow.model.FourInARowModel;
+import fourInARow.model.*;
 import fourInARow.view.FourInARowView;
 import fourInARow.excpetion.*;
 
@@ -18,11 +18,11 @@ public interface GameController {
 //	protected ArrayList<PlayerStrategy> _players;
 //		
 	
-	public void playTurn(); //don't call gameLoop before initMenu, use key
+	public GameStatus playTurn(); //don't call gameLoop before initMenu, use key
 	
-	public int mainMenu();
+	public void mainMenu();
 	
-	public void isGameOver();
+	public GameStatus getGameStatus();
 	
 	public void initViews();
 	
@@ -30,5 +30,8 @@ public interface GameController {
 	public void addView(FourInARowView view);
 	
 	public void removeView(FourInARowView view);
+	
+
+	public void printEndMessage();
 		
 }
