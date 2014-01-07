@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public abstract class CompositeGraphic implements GameGraphic {
 
-	ArrayList<GameGraphic> _graphics;
+	ArrayList<GameGraphic> _graphics = new ArrayList<GameGraphic>();
 	
 	@Override
 	public void setLocation(int x, int y) {
@@ -25,14 +25,14 @@ public abstract class CompositeGraphic implements GameGraphic {
 
 	}
 	
-	public void removeGraphic(int index) {
-		_graphics.remove(index);
+	public void removeGraphic(GameGraphic graphic) {
+		_graphics.remove(graphic);
 
 	}
 	
-	public GameGraphic getChild(int index) {
-		return _graphics.get(index);
-
-	}
+//	public GameGraphic getChild(int index) {
+//		return _graphics.get(index);
+//
+//	}
 
 }

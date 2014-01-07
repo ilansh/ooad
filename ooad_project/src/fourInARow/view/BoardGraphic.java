@@ -6,17 +6,6 @@ public class BoardGraphic extends CompositeGraphic {
 	private static final char CELL_BORDER = '|';
 	private static final char BOARD_BOTTOM = '-';
 	
-	private GameGraphic _disc1; 
-	private GameGraphic _disc2; //TODO: should be flyweight
-	private GameGraphic _emptyCell;
-			
-	public BoardGraphic(GameGraphic disc1, GameGraphic disc2, GameGraphic emptyCell)
-	{
-		_disc1 = disc1;
-		_disc2 = disc2;
-		_emptyCell = emptyCell;
-	}
-	
 	
 	@Override
 	public void setLocation(int x, int y) {
@@ -30,13 +19,13 @@ public class BoardGraphic extends CompositeGraphic {
 			System.out.print(CELL_BORDER);
 			for(int j = 0; j < board[0].length; j++) {
 				if(board[i][j] == 1) {
-					_disc1.drawGraphic(board);
+					_graphics.get(0).drawGraphic(board);
 				}
 				else if(board[i][j] == 2) {
-					_disc2.drawGraphic(board);
+					_graphics.get(1).drawGraphic(board);
 				}
 				else {
-					_emptyCell.drawGraphic(board);
+					_graphics.get(2).drawGraphic(board);
 				}
 				System.out.print(CELL_BORDER);
 			}

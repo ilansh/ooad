@@ -7,9 +7,18 @@ import fourInARow.excpetion.ColumnFullException;
 import fourInARow.excpetion.ColumnOutOfRangeException;
 import fourInARow.model.FourInARowModel;
 import fourInARow.model.FourInARowModel.GameStatus;
+import fourInARow.view.BoardGraphic;
+import fourInARow.view.BorderBoard;
+import fourInARow.view.CellGraphic;
 import fourInARow.view.FourInARowView;
+import fourInARow.view.WindowGraphic;
 
-public class SimpleFourInARowController extends FourInARowController{
+public class SimpleFourInARowController implements GameController{
+	
+	
+	protected FourInARowModel _model;
+	protected ArrayList<FourInARowView> _views;
+	protected ArrayList<PlayerStrategy> _players;
 	
 	
 	// the main menu
@@ -18,27 +27,47 @@ public class SimpleFourInARowController extends FourInARowController{
 	private static final int VS_COMPUTER_KEY = 2; //TODO: char or int
 	private static final int NUM_OF_PLAYERS = 2;
 	
-	
-	
 	private Scanner _terminalInput;
+	
+	public SimpleFourInARowController(FourInARowModel model){
+		_model = model;
+		_views = new ArrayList<FourInARowView>();
+		_terminalInput = new Scanner(System.in);
+		_players = new ArrayList<PlayerStrategy>(NUM_OF_PLAYERS);
+		BoardGraphic board = new BoardGraphic();
+		board.addGraphic(new CellGraphic('x'));
+		board.addGraphic(new CellGraphic('o'));
+		board.addGraphic(new CellGraphic(' '));
+		WindowGraphic window = new WindowGraphic();
+		window.addGraphic(board);
+		
+		BorderBoard b = new BorderBoard();
+		
+		FourInARowView view = new FourInARowView(window);
+		view.decorate(null, b, window);
+		addView(view);
+		
+	}
+	
 	
 	public SimpleFourInARowController(FourInARowModel model, FourInARowView view){
 		_model = model;
 		_views = new ArrayList<FourInARowView>();
+		_terminalInput = new Scanner(System.in);
 		addView(view);
 		_players = new ArrayList<PlayerStrategy>(NUM_OF_PLAYERS);
-		_terminalInput = new Scanner(System.in);
 	}
 	
 	public SimpleFourInARowController(FourInARowModel model, ArrayList<FourInARowView> views){
 		_model = model;
 		_views = new ArrayList<FourInARowView>();
+		_terminalInput = new Scanner(System.in);
 		for(int i = 0; i < views.size(); i++) {
 			addView(views.get(i));
 		}
 	}
 
-	private void printInitMenu() {
+	protected void printInitMenu() {
 		System.out.println(Integer.toString(QUIT_KEY) + ". Exit");
 		System.out.println(Integer.toString(VS_HUMAN_KEY) + ". Play against a friend");
 		System.out.println(Integer.toString(VS_COMPUTER_KEY) + ". Play against the computer");
@@ -47,9 +76,11 @@ public class SimpleFourInARowController extends FourInARowController{
 	
 	private void chooseGameType() {
 		int choice = QUIT_KEY;
+		System.out.println("Welcome to Four in a Line!");
 		printInitMenu();
 		try {
 			choice = Integer.parseInt(_terminalInput.nextLine());
+			System.out.println();
 		    while(choice != QUIT_KEY && choice != VS_HUMAN_KEY && choice != VS_COMPUTER_KEY)
 		    {
 				 System.out.println("Input incorrect! Please try again.");
@@ -110,6 +141,24 @@ public class SimpleFourInARowController extends FourInARowController{
 			System.out.print("Board is full! game has ended with a tie!");
 		}
 		
+	}
+	
+	protected void initViews() {
+		for(int i = 0; i < _views.size(); i++) {
+			_views.get(i).update(_model, _model.getBoard());
+		}
+	}
+	
+	
+	public void addView(FourInARowView view) {
+		_views.add(view);
+		_model.addObserver(view);
+		
+	}
+	
+	public void removeView(FourInARowView view) {
+		_views.remove(view);
+		_model.deleteObserver(view);
 	}
 
 }

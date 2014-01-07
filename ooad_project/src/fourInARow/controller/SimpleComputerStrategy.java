@@ -78,6 +78,7 @@ public class SimpleComputerStrategy implements PlayerStrategy
 	@Override
 	public void printMoveMessage(int playerNum) {
 		System.out.println("Computer makes a move:");
+		System.out.println();
 	}
 
 }

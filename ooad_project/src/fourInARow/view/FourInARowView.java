@@ -18,13 +18,25 @@ public class FourInARowView implements Observer{ //TODO: maybe singleton
 		_gameView.drawGraphic((int[][])arg); //TODO: is it ok???!???!??
 	}
 	
-//	public void showView(){
-//		_gameView.drawGraphic();
-//	}
-	
-//	public void showMenu(){
-//		
-//	}
+	/**
+	 * 
+	 * @param father - if decorating root, father should be null, otherwise, will add the decorator and remove decoratee from children
+	 * @param decorator - The decorator object, wrapping the decorated object 
+	 * @param decoratee - The decorated object, wrapped by the decorator
+	 */
+	public void decorate(CompositeGraphic father, CompositeGraphic decorator, GameGraphic decoratee) {
+		decorator.addGraphic(decoratee);
+		if(father != null)
+		{
+			father.removeGraphic(decoratee);
+			father.addGraphic(decorator);
+		}
+		else {
+			_gameView.removeGraphic(decoratee);
+			_gameView = decorator;
+		}
+	}
+
 	
 	
 	

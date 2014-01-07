@@ -27,6 +27,7 @@ public class HumanStrategy implements PlayerStrategy{
 	@Override
 	public void printMoveMessage(int playerNum) {
 		System.out.println("Player " + playerNum + ", choose a column: ");
+		System.out.println();
 	}
 
 
