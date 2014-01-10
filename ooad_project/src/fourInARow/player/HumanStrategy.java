@@ -1,4 +1,4 @@
-package fourInARow.controller;
+package fourInARow.player;
 
 import java.util.Scanner;
 

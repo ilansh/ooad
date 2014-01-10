@@ -3,7 +3,7 @@ package fourInARow.model;
 import java.util.Observable;
 import fourInARow.excpetion.*;
 
-public class FourInARowModel extends Observable{
+public class FourInARowModel extends Observable implements GameModel{ //TODO: handle GameModel who is not observable
 
 	// CONSTANTS
 
@@ -17,7 +17,7 @@ public class FourInARowModel extends Observable{
 	private int _cols;
 	private int _rows;
 	private int _discsNum;
-	private GameStatus _gameStatus;
+//	private GameStatus _gameStatus;
 	
 	// PUBLIC METHODS
 	
@@ -26,7 +26,7 @@ public class FourInARowModel extends Observable{
 		_rows = rows;
 		_discsNum = 0;
 		_board = new int[rows][cols];
-		_gameStatus = GameStatus.ONGOING;
+//		_gameStatus = GameStatus.ONGOING;
 
 	}
 	
@@ -80,7 +80,6 @@ public class FourInARowModel extends Observable{
 	}
 	
 	
-
 	//TODO optimize
 	public boolean isWinner(int[][] board, int col, int row, int playerNum){
 		int count = 1;
@@ -170,6 +169,15 @@ public class FourInARowModel extends Observable{
 		return false;
 	}
 
+	public int firstEmptyRow(int col) throws ColumnFullException{
+		for (int i = _rows - 1; i >= 0; i--){
+			if (_board[i][col] == 0){
+				return i;
+			}
+		}
+		throw new ColumnFullException(); 
+	}
+	
 	// PRIVATE METHODS
 	
 	private boolean isBoardFull(){
@@ -179,14 +187,6 @@ public class FourInARowModel extends Observable{
 		return false;
 	}
 	
-	private int firstEmptyRow(int col) throws ColumnFullException{
-		for (int i = _rows - 1; i >= 0; i--){
-			if (_board[i][col] == 0){
-				return i;
-			}
-		}
-		throw new ColumnFullException(); 
-	}
 	
 	private void isColOutOfRange(int col) throws ColumnOutOfRangeException {
 		if(col < 0 || col >= _cols) {

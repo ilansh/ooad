@@ -3,15 +3,10 @@ package fourInARow.controller;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import fourInARow.excpetion.ColumnFullException;
-import fourInARow.excpetion.ColumnOutOfRangeException;
-import fourInARow.model.FourInARowModel;
-import fourInARow.model.GameStatus;
-import fourInARow.view.BoardGraphic;
-import fourInARow.view.BorderBoard;
-import fourInARow.view.CellGraphic;
-import fourInARow.view.FourInARowView;
-import fourInARow.view.WindowGraphic;
+import fourInARow.excpetion.*;
+import fourInARow.model.*;
+import fourInARow.player.*;
+import fourInARow.view.*;
 
 public class MyGame implements GameController{
 	
@@ -19,7 +14,7 @@ public class MyGame implements GameController{
 	
 	protected FourInARowModel _model;
 	protected ArrayList<FourInARowView> _views;
-	protected ArrayList<PlayerStrategy> _players;
+	protected ArrayList<Player> _players;
 	GameStatus _gameStatus;
 	int _currentPlayer;
 	
@@ -36,14 +31,14 @@ public class MyGame implements GameController{
 		_model = model;
 		_views = new ArrayList<FourInARowView>();
 		_terminalInput = new Scanner(System.in);
-		_players = new ArrayList<PlayerStrategy>(NUM_OF_PLAYERS);
+		_players = new ArrayList<Player>(NUM_OF_PLAYERS);
 		_gameStatus = GameStatus.NOT_INIT;
 		_currentPlayer = 0;
 		BoardGraphic board = new BoardGraphic();
 		board.addGraphic(new CellGraphic('x'));
 		board.addGraphic(new CellGraphic('o'));
 		board.addGraphic(new CellGraphic(' '));
-		WindowGraphic window = new WindowGraphic();
+		WindowGraphic window = new WindowGraphic(); //TODO" remove this
 		window.addGraphic(board);
 		
 		BorderBoard b = new BorderBoard();
@@ -55,27 +50,28 @@ public class MyGame implements GameController{
 	}
 	
 	
-	public MyGame(FourInARowModel model, FourInARowView view){
-		_model = model;
-		_views = new ArrayList<FourInARowView>();
-		_terminalInput = new Scanner(System.in);
-		_gameStatus = GameStatus.NOT_INIT;
-		addView(view);
-		_players = new ArrayList<PlayerStrategy>(NUM_OF_PLAYERS);
-		_currentPlayer = 0;
-
-	}
-	
-	public MyGame(FourInARowModel model, ArrayList<FourInARowView> views){
-		_model = model;
-		_views = new ArrayList<FourInARowView>();
-		_terminalInput = new Scanner(System.in);
-		_gameStatus = GameStatus.NOT_INIT;
-		_currentPlayer = 0;
-		for(int i = 0; i < views.size(); i++) {
-			addView(views.get(i));
-		}
-	}
+//	public MyGame(FourInARowModel model, FourInARowView view){
+//		_model = model;
+//		_views = new ArrayList<FourInARowView>();
+//		_terminalInput = new Scanner(System.in);
+//		_gameStatus = GameStatus.NOT_INIT;
+//		addView(view);
+//		_players = new ArrayList<Player>(NUM_OF_PLAYERS);
+//		_currentPlayer = 0;
+//
+//	}
+//	
+//	public MyGame(FourInARowModel model, ArrayList<FourInARowView> views){
+//		_model = model;
+//		_views = new ArrayList<FourInARowView>();
+//		_terminalInput = new Scanner(System.in);
+//		_gameStatus = GameStatus.NOT_INIT;
+//		_currentPlayer = 0;
+//		_players = new ArrayList<Player>(NUM_OF_PLAYERS);
+//		for(int i = 0; i < views.size(); i++) {
+//			addView(views.get(i));
+//		}
+//	}
 
 	protected void printInitMenu() {
 		System.out.println(Integer.toString(QUIT_KEY) + ". Exit");
@@ -161,12 +157,19 @@ public class MyGame implements GameController{
 	
 	
 	public void addView(FourInARowView view) {
+		if(view == null) {
+			return;
+			//TODO" throw exception
+		}
 		_views.add(view);
 		_model.addObserver(view);
 		
 	}
 	
 	public void removeView(FourInARowView view) {
+		if(view == null) {
+			//TODO" throw exception
+		}
 		_views.remove(view);
 		_model.deleteObserver(view);
 	}
@@ -178,12 +181,15 @@ public class MyGame implements GameController{
 			//TODO: Throw Exception
 		}
 		int col;
-		_players.get(_currentPlayer).printMoveMessage(_currentPlayer + 1);
+		_players.get(_currentPlayer).printMoveMessage();
 		try {
-			col = _players.get(_currentPlayer % NUM_OF_PLAYERS).makeMove(_model);
+			col = _players.get(_currentPlayer % NUM_OF_PLAYERS).move(_model);
 			_gameStatus = _model.addDisc(col, _currentPlayer + 1);
-			_currentPlayer ++;
-			_currentPlayer %= NUM_OF_PLAYERS;
+			if(_gameStatus == GameStatus.ONGOING)
+			{
+				_currentPlayer ++;
+				_currentPlayer %= NUM_OF_PLAYERS;
+			}
 		}
 		catch(ColumnFullException cfe) {
 			System.out.println("Column is full");
@@ -221,12 +227,12 @@ public class MyGame implements GameController{
 			System.out.println("Illegal choice");
 		}
 		
-		_players.add(0, new HumanStrategy());
+		_players.add(new Player(new HumanStrategy(), "Player 1", 1));
 		if (choice == VS_HUMAN_KEY){
-			_players.add(0, new HumanStrategy());
+			_players.add(new Player(new HumanStrategy(), "Player 2", 2));
 		}
 		else if (choice == VS_COMPUTER_KEY){
-			_players.add(1, new SimpleComputerStrategy());
+			_players.add(new Player(new SimpleComputerStrategy(), "Computer", 2));
 		}
 		else if (choice == QUIT_KEY){
 			System.out.println("Bye bye!");
@@ -244,7 +250,7 @@ public class MyGame implements GameController{
 	
 	public void printEndMessage() {
 		if(_gameStatus == GameStatus.WIN) {
-			_players.get(_currentPlayer).printWinMessage(_currentPlayer);
+			_players.get(_currentPlayer).printWinMessage();
 		}
 		else if(_gameStatus == GameStatus.DRAW){
 			System.out.print("Board is full! game has ended with a tie!");
