@@ -1,5 +1,5 @@
 package fourInARow.player;
-import fourInARow.model.FourInARowModel;
+import fourInARow.model.MyModel;
 
 
 public interface IPlayer {
@@ -18,6 +18,6 @@ public interface IPlayer {
 	
 	public void printMoveMessage();
 
-	public int move(FourInARowModel model);
+	public int move(MyModel model);
 	
 }

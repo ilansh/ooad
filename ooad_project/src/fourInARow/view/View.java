@@ -4,11 +4,11 @@ import java.util.Observable;
 import java.util.Observer;
 import fourInARow.excpetion.*;
 
-public class FourInARowView implements Observer{ //TODO: maybe singleton
+public class View implements Observer{ //TODO: maybe singleton
 
 	private CompositeGraphic _gameView;
 	
-	public FourInARowView(CompositeGraphic gameView){
+	public View(CompositeGraphic gameView){
 		_gameView = gameView;
 	}
 	

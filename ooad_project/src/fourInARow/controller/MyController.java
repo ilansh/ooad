@@ -8,12 +8,12 @@ import fourInARow.model.*;
 import fourInARow.player.*;
 import fourInARow.view.*;
 
-public class MyGame implements GameController{
+public class MyController implements IController{
 	
 	
 	
-	protected FourInARowModel _model;
-	protected ArrayList<FourInARowView> _views;
+	protected MyModel _model;
+	protected ArrayList<View> _views;
 	protected ArrayList<Player> _players;
 	GameStatus _gameStatus;
 	int _currentPlayer;
@@ -27,9 +27,9 @@ public class MyGame implements GameController{
 	
 	private Scanner _terminalInput;
 	
-	public MyGame(FourInARowModel model){
+	public MyController(MyModel model){
 		_model = model;
-		_views = new ArrayList<FourInARowView>();
+		_views = new ArrayList<View>();
 		_terminalInput = new Scanner(System.in);
 		_players = new ArrayList<Player>(NUM_OF_PLAYERS);
 		_gameStatus = GameStatus.NOT_INIT;
@@ -43,7 +43,7 @@ public class MyGame implements GameController{
 		
 		BorderBoard b = new BorderBoard();
 		
-		FourInARowView view = new FourInARowView(window);
+		View view = new View(window);
 		view.decorate(null, b, window);
 		addView(view);
 		
@@ -156,7 +156,7 @@ public class MyGame implements GameController{
 	}
 	
 	
-	public void addView(FourInARowView view) {
+	public void addView(View view) {
 		if(view == null) {
 			return;
 			//TODO" throw exception
@@ -166,7 +166,7 @@ public class MyGame implements GameController{
 		
 	}
 	
-	public void removeView(FourInARowView view) {
+	public void removeView(View view) {
 		if(view == null) {
 			//TODO" throw exception
 		}

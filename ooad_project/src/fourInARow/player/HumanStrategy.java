@@ -2,7 +2,7 @@ package fourInARow.player;
 
 import java.util.Scanner;
 
-import fourInARow.model.FourInARowModel;
+import fourInARow.model.MyModel;
 
 
 public class HumanStrategy implements PlayerStrategy{
@@ -14,7 +14,7 @@ public class HumanStrategy implements PlayerStrategy{
 	}
 	
 	@Override
-	public int makeMove(FourInARowModel model) throws NumberFormatException{
+	public int makeMove(MyModel model) throws NumberFormatException{
 		int col = Integer.parseInt(_humanInput.nextLine());
 		return col;
 	}

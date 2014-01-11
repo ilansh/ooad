@@ -3,7 +3,7 @@ package fourInARow.model;
 import java.util.Observable;
 import fourInARow.excpetion.*;
 
-public class FourInARowModel extends Observable implements GameModel{ //TODO: handle GameModel who is not observable
+public class MyModel extends Observable implements IModel{ //TODO: handle GameModel who is not observable
 
 	// CONSTANTS
 
@@ -21,7 +21,7 @@ public class FourInARowModel extends Observable implements GameModel{ //TODO: ha
 	
 	// PUBLIC METHODS
 	
-	public FourInARowModel(int cols, int rows) {
+	public MyModel(int cols, int rows) {
 		_cols = cols;
 		_rows = rows;
 		_discsNum = 0;

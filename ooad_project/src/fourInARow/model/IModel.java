@@ -1,9 +1,10 @@
 package fourInARow.model;
 
 import fourInARow.excpetion.ColumnFullException;
+
 import fourInARow.excpetion.ColumnOutOfRangeException;
 
-public interface GameModel{
+public interface IModel{
 	
 	public GameStatus addDisc(int col, int playerNum) throws ColumnFullException , ColumnOutOfRangeException;
 	

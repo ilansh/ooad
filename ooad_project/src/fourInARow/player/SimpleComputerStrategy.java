@@ -1,6 +1,6 @@
 package fourInARow.player;
 
-import fourInARow.model.FourInARowModel;
+import fourInARow.model.MyModel;
 
 public class SimpleComputerStrategy implements PlayerStrategy
 {
@@ -11,7 +11,7 @@ public class SimpleComputerStrategy implements PlayerStrategy
 	
 	
 	@Override
-	public int makeMove(FourInARowModel model) {
+	public int makeMove(MyModel model) {
 		int emptyrow= 0;
 		int[][] board = model.getBoard();
 		int cols = model.getNumCols();

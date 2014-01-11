@@ -6,17 +6,10 @@ import java.util.Observable;
 import java.util.Scanner;
 
 import fourInARow.model.*;
-import fourInARow.view.FourInARowView;
+import fourInARow.view.View;
 import fourInARow.excpetion.*;
 
-public interface GameController {
-
-	//constants
-	
-//	protected FourInARowModel _model;
-//	protected ArrayList<FourInARowView> _views;
-//	protected ArrayList<PlayerStrategy> _players;
-//		
+public interface IController {
 	
 	public GameStatus playTurn(); //don't call gameLoop before initMenu, use key
 	
@@ -26,12 +19,10 @@ public interface GameController {
 	
 	public void initViews();
 	
+	public void addView(View view);
 	
-	public void addView(FourInARowView view);
+	public void removeView(View view);
 	
-	public void removeView(FourInARowView view);
-	
-
 	public void printEndMessage();
 		
 }

@@ -1,5 +1,5 @@
 package fourInARow.player;
-import fourInARow.model.FourInARowModel;
+import fourInARow.model.MyModel;
 
 
 public class Player implements IPlayer{
@@ -64,7 +64,7 @@ public class Player implements IPlayer{
 	}
 
 	@Override
-	public int move(FourInARowModel model) {
+	public int move(MyModel model) {
 		if(model == null) {
 			//TODO: Throw Exception
 		}
