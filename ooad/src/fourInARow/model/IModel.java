@@ -1,5 +1,6 @@
 package fourInARow.model;
 
+
 import fourInARow.excpetion.ColumnFullException;
 
 import fourInARow.excpetion.ColumnOutOfRangeException;

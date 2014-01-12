@@ -1,5 +1,6 @@
 package fourInARow.model;
 
+
 import java.util.Observable;
 import fourInARow.excpetion.*;
 
