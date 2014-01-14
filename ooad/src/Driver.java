@@ -6,6 +6,8 @@ import java.io.UnsupportedEncodingException;
 
 import fourInARow.aspects.GameLogger;
 import fourInARow.controller.*;
+import fourInARow.excpetion.ColumnFullException;
+import fourInARow.excpetion.ColumnOutOfRangeException;
 import fourInARow.view.*;
 import fourInARow.model.*;
 import fourInARow.loggingProxy.*;
@@ -32,7 +34,18 @@ public class Driver {
 		GameStatus status = controller.getGameStatus();
 		
 		do{
-			status = controller.playTurn();
+			try {
+				status = controller.playTurn();
+			}
+			catch(ColumnFullException cfe) {
+				System.out.println("Column is full");
+			}
+			catch(ColumnOutOfRangeException coore) {
+				System.out.println("Column out of range");
+			}
+			catch(NumberFormatException nfe) { //makemove by human
+				System.out.println("illegal column format");
+			}
 		} while(status != GameStatus.WIN && status != GameStatus.DRAW);
 	
 		controller.printEndMessage();
@@ -50,11 +63,10 @@ public class Driver {
 		MyModel model = new MyModel(5, 6);
 		IController controller = new MyController(model);
 		
-		CellGraphic epmtyCell = new CellGraphic(' ');
-		CellGraphic disc1 = new CellGraphic('x');
-		CellGraphic disc2 = new CellGraphic('o');
+		DiscGraphic disc1 = new DiscGraphic('x');
+		DiscGraphic disc2 = new DiscGraphic('o');
 		
-		CellFactory cf = new CellFactory(epmtyCell, disc1, disc2);
+		DiscFactory cf = new DiscFactory(disc1, disc2);
 		BoardGraphic board = new BoardGraphic(cf);
 		
 		WindowGraphic window = new WindowGraphic(); //TODO" remove this

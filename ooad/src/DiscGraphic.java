@@ -9,12 +9,12 @@ import fourInARow.view.IGameGraphic;
 
 
 
-public class CellGraphic implements IGameGraphic {
+public class DiscGraphic implements IGameGraphic {
 	
 	
 	private char _cellContent;
 	
-	public CellGraphic(char cellContent) {
+	public DiscGraphic(char cellContent) {
 		_cellContent = cellContent;
 	}
 	
@@ -36,7 +36,7 @@ public class CellGraphic implements IGameGraphic {
 	}
 	
 	@Override
-	public CellGraphic clone() {
-		return new CellGraphic(_cellContent);
+	public DiscGraphic clone() {
+		return new DiscGraphic(_cellContent);
 	}
 }

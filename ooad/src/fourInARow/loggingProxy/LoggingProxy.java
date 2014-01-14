@@ -36,11 +36,25 @@ public class LoggingProxy implements InvocationHandler {
 	            		_writer.print("null");
 	            	}
 	            	else {
-	            		_writer.print(args[i].toString());
+	            		_writer.print(args[i].getClass().getSimpleName());
 	            	}
 	            }
+	            _writer.println(")");
+	            _writer.println("argument details:");
+	            for(int i = 0; i < args.length; i++) {
+	            	if(args[i] == null) {
+	            		_writer.println("null");
+	            	}
+	            	else {
+	            		_writer.println(i + ". " + args[i].toString());
+	            	}
+	            }
+	            _writer.println();
             }
-            _writer.println(")");
+            else {
+            	_writer.println(")");
+            }
+            
             result = m.invoke(_obj, args);
         } catch (InvocationTargetException e) {
             throw e.getTargetException();

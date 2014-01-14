@@ -2,12 +2,13 @@
 package fourInARow.controller;
 
 
+import fourInARow.excpetion.*;
 import fourInARow.model.*;
 import fourInARow.view.View;
 
 public interface IController {
 	
-	public GameStatus playTurn(); //don't call gameLoop before initMenu, use key
+	public GameStatus playTurn() throws ColumnFullException, ColumnOutOfRangeException, NumberFormatException;
 	
 	public void mainMenu();
 	

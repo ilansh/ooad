@@ -4,7 +4,7 @@
 import java.awt.Point;
 
 import fourInARow.model.PlayerNum;
-import fourInARow.view.CellFactory;
+import fourInARow.view.DiscFactory;
 import fourInARow.view.CompositeGraphic;
 
 
@@ -14,10 +14,10 @@ public class BoardGraphic extends CompositeGraphic {
 	private static final char BOARD_BOTTOM = '-';
 	private static final char EMPTY_CELL = ' ';
 	
-	private CellFactory _cellFactory;
+	private DiscFactory _cellFactory;
 	
 	
-	public BoardGraphic(CellFactory factory) {  //package private
+	public BoardGraphic(DiscFactory factory) {  //package private
 		_cellFactory = factory;
 	}
 	

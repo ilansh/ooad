@@ -176,29 +176,18 @@ public class MyController implements IController{
 
 
 	@Override
-	public GameStatus playTurn() {
+	public GameStatus playTurn() throws ColumnFullException, ColumnOutOfRangeException, NumberFormatException {
 		if(_gameStatus != GameStatus.ONGOING) {
 			//TODO: Throw Exception
 		}
 		int col;
 		_players.get(_currentPlayer).printMoveMessage();
-		try {
-			col = _players.get(_currentPlayer % NUM_OF_PLAYERS).move(_model);
-			_gameStatus = _model.addDisc(col, _currentPlayer + 1);
-			if(_gameStatus == GameStatus.ONGOING)
-			{
-				_currentPlayer ++;
-				_currentPlayer %= NUM_OF_PLAYERS;
-			}
-		}
-		catch(ColumnFullException cfe) {
-			System.out.println("Column is full");
-		}
-		catch(ColumnOutOfRangeException coore) {
-			System.out.println("Column out of range");
-		}
-		catch(NumberFormatException nfe) { //makemove by human
-			System.out.println("illegal column format");
+		col = _players.get(_currentPlayer % NUM_OF_PLAYERS).move(_model);
+		_gameStatus = _model.addDisc(col, _currentPlayer + 1);
+		if(_gameStatus == GameStatus.ONGOING)
+		{
+			_currentPlayer ++;
+			_currentPlayer %= NUM_OF_PLAYERS;
 		}
 		return _gameStatus;
 	}
