@@ -10,8 +10,6 @@ public interface IPlayer {
 	
 	public void setStrategy(PlayerStrategy strategy);
 	
-	public void setPlayerNum(int num);
-	
 	public int getPlayerNum();
 	
 	public void printWinMessage();

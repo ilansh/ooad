@@ -1,6 +1,11 @@
-package fourInARow.view;
+
+
 
 import java.awt.Point;
+
+import fourInARow.view.CompositeGraphic;
+import fourInARow.view.IGameGraphic;
+
 
 public class BorderBoard  extends CompositeGraphic{
 
@@ -15,4 +20,11 @@ public class BorderBoard  extends CompositeGraphic{
 		System.out.println("__________________");
 		super.drawGraphic(board);
 	}
+
+	@Override
+	public IGameGraphic clone() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }

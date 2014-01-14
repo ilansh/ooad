@@ -18,13 +18,16 @@ public class Driver {
 	
 //	GameLogger gl;
 	
-	public static void runGame(IController controller, MyModel model) {
+	public static void runGame(IController controller, MyModel model, View view) {
+
+		
+	
+		
+		controller.addView(view);
+		
+		
 		controller.mainMenu();
 		controller.initViews();
-		
-		View view = new View(new WindowGraphic());
-	
-		controller.addView(view);
 		
 		GameStatus status = controller.getGameStatus();
 		
@@ -44,9 +47,25 @@ public class Driver {
 		PrintWriter modelLog = null;
 		PrintWriter gameLog = null;
 		
-		
 		MyModel model = new MyModel(5, 6);
 		IController controller = new MyController(model);
+		
+		CellGraphic epmtyCell = new CellGraphic(' ');
+		CellGraphic disc1 = new CellGraphic('x');
+		CellGraphic disc2 = new CellGraphic('o');
+		
+		CellFactory cf = new CellFactory(epmtyCell, disc1, disc2);
+		BoardGraphic board = new BoardGraphic(cf);
+		
+		WindowGraphic window = new WindowGraphic(); //TODO" remove this
+		window.addGraphic(board);
+		
+		BorderBoard b = new BorderBoard();
+		
+		View view = new View(window);
+//		view.decorate(null, b, window);
+		
+//		controller.addView(new View(board));
 		
 //		if(args.length > 0 && args[0].equalsIgnoreCase(LOG_ENABLED)) {
 			try {
@@ -56,7 +75,7 @@ public class Driver {
 				GameLogger gl = GameLogger.aspectOf();
 				gl.initLogger(gameLog);
 				IController loggedController = (IController)LoggingProxy.newInstance(controller, controllerLog);
-				runGame(loggedController, model);
+				runGame(loggedController, model, view);
 				controllerLog.close();
 				modelLog.close();
 				gameLog.close();

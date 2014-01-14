@@ -3,9 +3,9 @@ package fourInARow.view;
 import java.awt.Point;
 import java.util.ArrayList;
 
-public abstract class CompositeGraphic implements GameGraphic {
+public abstract class CompositeGraphic implements IGameGraphic {
 
-	ArrayList<GameGraphic> _graphics = new ArrayList<GameGraphic>();
+	protected ArrayList<IGameGraphic> _graphics = new ArrayList<IGameGraphic>();
 	
 	@Override
 	public void setLocation(Point p) {
@@ -15,22 +15,27 @@ public abstract class CompositeGraphic implements GameGraphic {
 
 	@Override
 	public void drawGraphic(int[][] board) {
-		for (GameGraphic g : _graphics ){
+		for (IGameGraphic g : _graphics ){
 			g.drawGraphic(board);
 		}
 
 	}
 	
-	public void addGraphic(GameGraphic graphic) {
+	public void addGraphic(IGameGraphic graphic) {
 		_graphics.add(graphic);
 
 	}
 	
-	public void removeGraphic(GameGraphic graphic) {
+	public void removeGraphic(IGameGraphic graphic) {
 		_graphics.remove(graphic);
 
 	}
 	
+	public abstract IGameGraphic clone();
+	
+	public String toString() {
+		return getClass().getName();
+	}
 //	public GameGraphic getChild(int index) {
 //		return _graphics.get(index);
 //

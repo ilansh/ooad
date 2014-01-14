@@ -42,12 +42,6 @@ public class Player implements IPlayer{
 	}
 
 	@Override
-	public void setPlayerNum(int num) {
-		_playerNum = num;
-		
-	}
-
-	@Override
 	public int getPlayerNum() {
 		return _playerNum;
 	}

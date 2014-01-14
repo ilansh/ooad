@@ -1,8 +1,9 @@
-package fourInARow.controller;
+
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import fourInARow.controller.IController;
 import fourInARow.excpetion.*;
 import fourInARow.model.*;
 import fourInARow.player.*;
@@ -34,18 +35,17 @@ public class MyController implements IController{
 		_players = new ArrayList<Player>(NUM_OF_PLAYERS);
 		_gameStatus = GameStatus.NOT_INIT;
 		_currentPlayer = 0;
-		BoardGraphic board = new BoardGraphic();
-		board.addGraphic(new CellGraphic('x'));
-		board.addGraphic(new CellGraphic('o'));
-		board.addGraphic(new CellGraphic(' '));
-		WindowGraphic window = new WindowGraphic(); //TODO" remove this
-		window.addGraphic(board);
 		
-		BorderBoard b = new BorderBoard();
+
+//		WindowGraphic window = new WindowGraphic(); //TODO" remove this
+//		window.addGraphic(board);
 		
-		View view = new View(window);
-		view.decorate(null, b, window);
-		addView(view);
+//		BorderBoard b = new BorderBoard();
+		
+//		View view = new View(board);
+//		View view = new View(window);
+//		view.decorate(null, b, window);
+//		addView(view);
 		
 	}
 	

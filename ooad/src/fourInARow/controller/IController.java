@@ -1,13 +1,9 @@
 
 package fourInARow.controller;
 
-import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Scanner;
 
 import fourInARow.model.*;
 import fourInARow.view.View;
-import fourInARow.excpetion.*;
 
 public interface IController {
 	

@@ -1,6 +1,7 @@
-package fourInARow.player;
+
 
 import fourInARow.model.MyModel;
+import fourInARow.player.PlayerStrategy;
 
 public class SimpleComputerStrategy implements PlayerStrategy
 {
