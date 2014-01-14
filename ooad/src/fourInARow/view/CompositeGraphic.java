@@ -1,5 +1,6 @@
 package fourInARow.view;
 
+import java.awt.Point;
 import java.util.ArrayList;
 
 public abstract class CompositeGraphic implements GameGraphic {
@@ -7,7 +8,7 @@ public abstract class CompositeGraphic implements GameGraphic {
 	ArrayList<GameGraphic> _graphics = new ArrayList<GameGraphic>();
 	
 	@Override
-	public void setLocation(int x, int y) {
+	public void setLocation(Point p) {
 		// TODO Auto-generated method stub
 
 	}

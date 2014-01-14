@@ -1,8 +1,10 @@
 package fourInARow.view;
 
+import java.awt.Point;
+
 public class WindowGraphic extends CompositeGraphic{
 	@Override
-	public void setLocation(int x, int y) {
+	public void setLocation(Point p) {
 		// TODO Auto-generated method stub
 		
 	}

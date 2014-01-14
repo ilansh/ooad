@@ -1,5 +1,7 @@
 package fourInARow.view;
 
+import java.awt.Point;
+
 
 public class BoardGraphic extends CompositeGraphic {
 
@@ -8,7 +10,7 @@ public class BoardGraphic extends CompositeGraphic {
 	
 	
 	@Override
-	public void setLocation(int x, int y) {
+	public void setLocation(Point p) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -1,5 +1,7 @@
 package fourInARow.view;
 
+import java.awt.Point;
+
 
 public class CellGraphic implements GameGraphic {
 	
@@ -10,7 +12,7 @@ public class CellGraphic implements GameGraphic {
 	}
 	
 	@Override
-	public void setLocation(int x, int y) {
+	public void setLocation(Point p) {
 		// TODO Auto-generated method stub
 		
 	}
