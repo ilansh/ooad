@@ -1,5 +1,6 @@
 package fourInARow.player;
 import fourInARow.model.MyModel;
+import fourInARow.model.PlayerNum;
 
 
 public interface IPlayer {
@@ -10,7 +11,7 @@ public interface IPlayer {
 	
 	public void setStrategy(PlayerStrategy strategy);
 	
-	public int getPlayerNum();
+	public PlayerNum getPlayerNum();
 	
 	public void printWinMessage();
 	

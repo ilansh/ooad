@@ -1,31 +1,28 @@
 
 
 import fourInARow.model.MyModel;
+import fourInARow.model.PlayerNum;
 import fourInARow.player.PlayerStrategy;
 
 public class SimpleComputerStrategy implements PlayerStrategy
 {
-
-	public static final int EMPTY_CELL = 0;
-	public static final int PLAYER1 = 1;
-	public static final int PLAYER2 = 2;
 	
 	
 	@Override
 	public int makeMove(MyModel model) {
 		int emptyrow= 0;
-		int[][] board = model.getBoard();
+		PlayerNum[][] board = model.getBoard();
 		int cols = model.getNumCols();
 		// first check if a move can win
 		for (int i=0; i< cols; i++) {
 			if (!isColumnFull(board, i)) {
 				emptyrow = firstEmptyRow(board,i);
-				board[emptyrow][i] = PLAYER2;
-				if (model.isWinner(board, i, emptyrow, PLAYER2)) {
-					board[emptyrow][i] = EMPTY_CELL; // reset
+				board[emptyrow][i] = PlayerNum.PLAYER2;
+				if (model.isWinner(board, i, emptyrow, PlayerNum.PLAYER2)) {
+					board[emptyrow][i] = PlayerNum.EMPTY; // reset
 					return i;
 				}
-				board[emptyrow][i] = EMPTY_CELL; // reset
+				board[emptyrow][i] = PlayerNum.EMPTY; // reset
 			}
 		}
 		// otherwise then pick up any move that will prevent other player to win 
@@ -35,13 +32,13 @@ public class SimpleComputerStrategy implements PlayerStrategy
 		for (int i=0; i< cols; i++) {
 			if (!isColumnFull(board,i)) {
 				emptyrow = firstEmptyRow(board,i);
-				board[emptyrow][i] = PLAYER1; // assume the other player does this
-				if (model.isWinner(board, i, emptyrow, PLAYER1)) {
-					board[emptyrow][i] = EMPTY_CELL; // reset
+				board[emptyrow][i] = PlayerNum.PLAYER1; // assume the other player does this
+				if (model.isWinner(board, i, emptyrow, PlayerNum.PLAYER1)) {
+					board[emptyrow][i] = PlayerNum.EMPTY; // reset
 					counter++; // we found a winning disc
 					chosenrow = i; // remember the row
 				}
-				board[emptyrow][i] = EMPTY_CELL; // reset
+				board[emptyrow][i] = PlayerNum.EMPTY; // reset
 			}
 		}
 		// we block the player if there is exactly one winning disc 
@@ -55,9 +52,9 @@ public class SimpleComputerStrategy implements PlayerStrategy
 		return -1; 
 	}
 	
-	private static boolean isColumnFull(int[][] board, int colIndex){
+	private static boolean isColumnFull(PlayerNum[][] board, int colIndex){
 		for (int i = 0; i < board.length; i++) {
-			if (board[i][colIndex] == EMPTY_CELL)
+			if (board[i][colIndex] == PlayerNum.EMPTY)
 				return false;
 		}
 		return true;
@@ -65,9 +62,9 @@ public class SimpleComputerStrategy implements PlayerStrategy
 	
 	
 	// returns the ROW index of the first empty cell in the COLUMN rowIndex. -1 if all full
-	private static int firstEmptyRow(int[][] board, int colIndex) {
+	private static int firstEmptyRow(PlayerNum[][] board, int colIndex) {
 		for (int i = board.length-1; i >=0; i--) {
-			if (board[i][colIndex] == EMPTY_CELL) return i;
+			if (board[i][colIndex] == PlayerNum.EMPTY) return i;
 		}
 		return -1;
 	}

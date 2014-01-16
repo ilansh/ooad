@@ -10,6 +10,7 @@ import fourInARow.excpetion.ColumnFullException;
 import fourInARow.excpetion.ColumnOutOfRangeException;
 import fourInARow.view.*;
 import fourInARow.model.*;
+import fourInARow.player.Player;
 import fourInARow.loggingProxy.*;
 
 
@@ -25,11 +26,13 @@ public class Driver {
 		
 	
 		
-		controller.addView(view);
+//		controller.addView(view);
 		
 		
+		Player player1 = new Player(new HumanStrategy(), "ilan", PlayerNum.PLAYER1);
+		Player player2 = new Player(new HumanStrategy(), "ilan", PlayerNum.PLAYER1);
 		controller.mainMenu();
-		controller.initViews();
+		controller.initGame(player1, player2, view);
 		
 		GameStatus status = controller.getGameStatus();
 		
