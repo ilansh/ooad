@@ -3,23 +3,23 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import fourInARow.controller.AController;
 import fourInARow.controller.IController;
 import fourInARow.excpetion.*;
 import fourInARow.model.*;
 import fourInARow.player.*;
 import fourInARow.view.*;
 
-public class MyController implements IController{
+public class MyController extends AController{
 	
 	
 	
-	protected MyModel _model;
-	protected ArrayList<View> _views;
-	protected ArrayList<Player> _players;
-	GameStatus _gameStatus;
-	int _currentPlayer;
 	
 	
+	
+
+
+
 	// the main menu
 	private static final int QUIT_KEY = 0;
 	private static final int VS_HUMAN_KEY = 1;
@@ -28,14 +28,14 @@ public class MyController implements IController{
 	
 	private Scanner _terminalInput;
 	
-	public MyController(MyModel model){
-		_model = model;
-		_views = new ArrayList<View>();
-		_terminalInput = new Scanner(System.in);
-		_players = new ArrayList<Player>(NUM_OF_PLAYERS);
-		_gameStatus = GameStatus.NOT_INIT;
-		_currentPlayer = 0;
-		
+	
+	public MyController(MyModel model) {
+		super(model);
+	}
+//	public MyController(MyModel model){
+//	
+//	}
+//		
 
 //		WindowGraphic window = new WindowGraphic(); //TODO" remove this
 //		window.addGraphic(board);
@@ -47,7 +47,6 @@ public class MyController implements IController{
 //		view.decorate(null, b, window);
 //		addView(view);
 		
-	}
 	
 	
 //	public MyGame(FourInARowModel model, FourInARowView view){
@@ -79,77 +78,19 @@ public class MyController implements IController{
 		System.out.println(Integer.toString(VS_COMPUTER_KEY) + ". Play against the computer");
 		System.out.print("Please choose an option:");
 	}
+
+
+@Override
+public void mainMenu() {
+	// TODO Auto-generated method stub
 	
-//	private void chooseGameType() {
-//		int choice = QUIT_KEY;
-//		System.out.println("Welcome to Four in a Line!");
-//		printInitMenu();
-//		try {
-//			choice = Integer.parseInt(_terminalInput.nextLine());
-//			System.out.println();
-//		    while(choice != QUIT_KEY && choice != VS_HUMAN_KEY && choice != VS_COMPUTER_KEY)
-//		    {
-//				 System.out.println("Input incorrect! Please try again.");
-//				 printInitMenu();
-//				 choice = Integer.parseInt(_terminalInput.nextLine());
-//		    }
-//		}
-//		catch (NumberFormatException nfe) {
-//			System.out.println("Illegal choice");
-//		}
-//		
-//		
-//		_players.add(0, new HumanStrategy());
-//		if (choice == VS_HUMAN_KEY){
-//			_players.add(0, new HumanStrategy());
-//		}
-//		else if (choice == VS_COMPUTER_KEY){
-//			_players.add(1, new SimpleComputerStrategy());
-//		}
-//		else if (choice == QUIT_KEY){
-//			System.out.println("Bye bye!");
-//			_terminalInput.close();
-//			System.exit(0); //TODO: organized exit
-//		}
-//	}
+}
 	
+
 	
-//	public void gameLoop() {
-//		chooseGameType();
-//		initViews();
-//		FourInARowModel.GameStatus gameStatus = FourInARowModel.GameStatus.CONTINUE;
-//		int currentPlayer = 0;
-//		int col;
-//		
-//		do {
-//			_players.get(currentPlayer).printMoveMessage(currentPlayer + 1);
-//			try {
-//				col = _players.get(currentPlayer % NUM_OF_PLAYERS).makeMove(_model);
-//				gameStatus = _model.addDisc(col, currentPlayer + 1);
-//				currentPlayer ++;
-//				currentPlayer %= NUM_OF_PLAYERS;
-//			}
-//			catch(ColumnFullException cfe) {
-//				System.out.println("Column is full");
-//			}
-//			catch(ColumnOutOfRangeException coore) {
-//				System.out.println("Column out of range");
-//			}
-//			catch(NumberFormatException nfe) { //makemove by human
-//				System.out.println("illegal column format");
-//			}
-//		} while (gameStatus == FourInARowModel.GameStatus.CONTINUE);
-//		
-//		if (gameStatus == FourInARowModel.GameStatus.WIN){
-//			_players.get((currentPlayer + 1) % NUM_OF_PLAYERS).printWinMessage((currentPlayer + 1) % NUM_OF_PLAYERS + 1);
-//		}
-//		else if (gameStatus == FourInARowModel.GameStatus.DRAW){ //TODO erase
-//			System.out.print("Board is full! game has ended with a tie!");
-//		}
-//		
-//	}
+
 	
-	public void initViews() {
+	/*public void initViews() {
 		for(int i = 0; i < _views.size(); i++) {
 			_views.get(i).update(_model, _model.getBoard());
 		}
@@ -245,6 +186,6 @@ public class MyController implements IController{
 			System.out.print("Board is full! game has ended with a tie!");
 		}
 		//TODO: throw game not over exception
-	}
+	}*/
 
 }

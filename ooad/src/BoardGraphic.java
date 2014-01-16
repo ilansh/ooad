@@ -29,14 +29,14 @@ public class BoardGraphic extends CompositeGraphic {
 	}
 
 	@Override
-	public void drawGraphic(int[][] board) {
+	public void drawGraphic(PlayerNum[][] board) {
 		for(int i = 0; i < board.length; i++) {
 			System.out.print(CELL_BORDER);
 			for(int j = 0; j < board[0].length; j++) {
-				if(board[i][j] == PlayerNum.PLAYER1.ordinal()) {
+				if(board[i][j] == PlayerNum.PLAYER1) {
 					_cellFactory.newInstance(i, j, PlayerNum.PLAYER1.ordinal()).drawGraphic(null);
 				}
-				else if(board[i][j] == PlayerNum.PLAYER2.ordinal()) {
+				else if(board[i][j] == PlayerNum.PLAYER2) {
 					_cellFactory.newInstance(i, j, PlayerNum.PLAYER2.ordinal()).drawGraphic(null);
 				}
 				else {

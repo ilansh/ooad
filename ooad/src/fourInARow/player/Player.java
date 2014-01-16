@@ -1,5 +1,6 @@
 package fourInARow.player;
 import fourInARow.model.MyModel;
+import fourInARow.model.PlayerNum;
 
 
 public class Player implements IPlayer{
@@ -8,10 +9,13 @@ public class Player implements IPlayer{
 	
 	String _name;
 	
-	int _playerNum;
+	PlayerNum _playerNum;
 	
 	
-	public Player(PlayerStrategy strategy, String name, int playerNum) {
+	public Player(PlayerStrategy strategy, String name, PlayerNum playerNum) {
+		if(strategy == null || name == null) {
+			//TODO: throw exception
+		}
 		_strategy = strategy;
 		_name = name;
 		_playerNum = playerNum;
@@ -42,18 +46,18 @@ public class Player implements IPlayer{
 	}
 
 	@Override
-	public int getPlayerNum() {
+	public PlayerNum getPlayerNum() {
 		return _playerNum;
 	}
 
 	@Override
 	public void printWinMessage() {
-		_strategy.printWinMessage(_playerNum);
+		_strategy.printWinMessage(_playerNum.ordinal());
 	}
 
 	@Override
 	public void printMoveMessage() {
-		_strategy.printMoveMessage(_playerNum);
+		_strategy.printMoveMessage(_playerNum.ordinal());
 		
 	}
 

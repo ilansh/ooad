@@ -7,15 +7,15 @@ import fourInARow.excpetion.ColumnOutOfRangeException;
 
 public interface IModel{
 	
-	public GameStatus addDisc(int col, int playerNum) throws ColumnFullException , ColumnOutOfRangeException;
+	public GameStatus addDisc(int col, PlayerNum playerNum) throws ColumnFullException , ColumnOutOfRangeException;
 	
-	public int [][] getBoard();
+	public PlayerNum [][] getBoard();
 	
 	public int getNumRows();
 	
 	public int getNumCols();
 	
-	public boolean isWinner(int[][] board, int col, int row, int playerNum);
+	public boolean isWinner(PlayerNum[][] board, int col, int row, PlayerNum playerNum);
 	
 	public int firstEmptyRow(int col) throws ColumnFullException;
 	

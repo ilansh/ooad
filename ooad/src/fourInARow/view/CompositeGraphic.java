@@ -3,6 +3,8 @@ package fourInARow.view;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import fourInARow.model.PlayerNum;
+
 public abstract class CompositeGraphic implements IGameGraphic {
 
 	protected ArrayList<IGameGraphic> _graphics = new ArrayList<IGameGraphic>();
@@ -14,7 +16,7 @@ public abstract class CompositeGraphic implements IGameGraphic {
 	}
 
 	@Override
-	public void drawGraphic(int[][] board) {
+	public void drawGraphic(PlayerNum[][] board) {
 		for (IGameGraphic g : _graphics ){
 			g.drawGraphic(board);
 		}

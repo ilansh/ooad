@@ -2,6 +2,7 @@
 
 import java.awt.Point;
 
+import fourInARow.model.PlayerNum;
 import fourInARow.view.CompositeGraphic;
 import fourInARow.view.IGameGraphic;
 
@@ -13,7 +14,7 @@ public class WindowGraphic extends CompositeGraphic{
 	}
 
 	@Override
-	public void drawGraphic(int[][] board) {
+	public void drawGraphic(PlayerNum[][] board) {
 		System.out.println("******");
 		super.drawGraphic(board);
 	}

@@ -4,6 +4,7 @@
 
 import java.awt.Point;
 
+import fourInARow.model.PlayerNum;
 import fourInARow.view.IGameGraphic;
 
 
@@ -30,7 +31,7 @@ public class DiscGraphic implements IGameGraphic {
 //	}
 	
 	@Override
-	public void drawGraphic(int[][] board) {
+	public void drawGraphic(PlayerNum[][] board) {
 		System.out.print(_cellContent);
 		
 	}

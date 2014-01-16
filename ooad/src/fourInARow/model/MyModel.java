@@ -14,7 +14,7 @@ public class MyModel extends Observable implements IModel{ //TODO: handle GameMo
 	
 	
 	// MEMBERS
-	private int [][] _board;
+	private PlayerNum [][] _board;
 	private int _cols;
 	private int _rows;
 	private int _discsNum;
@@ -26,7 +26,7 @@ public class MyModel extends Observable implements IModel{ //TODO: handle GameMo
 		_cols = cols;
 		_rows = rows;
 		_discsNum = 0;
-		_board = new int[rows][cols];
+		_board = new PlayerNum[rows][cols];
 //		_gameStatus = GameStatus.ONGOING;
 
 	}
@@ -41,7 +41,7 @@ public class MyModel extends Observable implements IModel{ //TODO: handle GameMo
 	 * @return
 	 * @throws ColumnFullException
 	 */
-	public GameStatus addDisc(int col, int playerNum) throws ColumnFullException , ColumnOutOfRangeException{ //TODO: exception heirarchy
+	public GameStatus addDisc(int col, PlayerNum playerNum) throws ColumnFullException , ColumnOutOfRangeException{ //TODO: exception heirarchy
 		isColOutOfRange(col);
 		
 		int row = firstEmptyRow(col);
@@ -61,8 +61,8 @@ public class MyModel extends Observable implements IModel{ //TODO: handle GameMo
 		return GameStatus.ONGOING;
 	}
 	
-	public int [][] getBoard(){
-		int [][] copyBoard = new int[_rows][_cols];
+	public PlayerNum [][] getBoard(){
+		PlayerNum [][] copyBoard = new PlayerNum[_rows][_cols];
 		for(int i=0; i<_rows; i++){
 			for(int j = 0; j< _cols; j++){
 				copyBoard[i][j] = _board[i][j];
@@ -82,7 +82,7 @@ public class MyModel extends Observable implements IModel{ //TODO: handle GameMo
 	
 	
 	//TODO optimize
-	public boolean isWinner(int[][] board, int col, int row, int playerNum){
+	public boolean isWinner(PlayerNum[][] board, int col, int row, PlayerNum playerNum){
 		int count = 1;
 
 		// horizontal right
@@ -172,7 +172,7 @@ public class MyModel extends Observable implements IModel{ //TODO: handle GameMo
 
 	public int firstEmptyRow(int col) throws ColumnFullException{
 		for (int i = _rows - 1; i >= 0; i--){
-			if (_board[i][col] == 0){
+			if (_board[i][col] == PlayerNum.EMPTY){
 				return i;
 			}
 		}
