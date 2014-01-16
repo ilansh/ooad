@@ -14,4 +14,16 @@ public interface IGameGraphic extends Cloneable{
 	 * @return
 	 */
 	public IGameGraphic clone();
+	
+	
+	@Override
+	public int hashCode();
+	
+	/**
+	 * Implement such that two discs with the same graphics are equal
+	 * regardless of position
+	 * @return
+	 */
+	@Override
+	public boolean equals(Object obj);
 }

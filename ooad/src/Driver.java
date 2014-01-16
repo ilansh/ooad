@@ -66,8 +66,13 @@ public class Driver {
 		DiscGraphic disc1 = new DiscGraphic('x');
 		DiscGraphic disc2 = new DiscGraphic('o');
 		
-		DiscFactory cf = new DiscFactory(disc1, disc2);
-		BoardGraphic board = new BoardGraphic(cf);
+		
+		AbstractDiscFactory adf = AbstractDiscFactory.newInsance();
+		adf.addFactoryImpl(disc1);
+		adf.addFactoryImpl(disc2);
+		DiscFactory df1 = adf.getFactory(disc1);
+		DiscFactory df2 = adf.getFactory(disc2);
+		BoardGraphic board = new BoardGraphic(df1, df2);
 		
 		WindowGraphic window = new WindowGraphic(); //TODO" remove this
 		window.addGraphic(board);
@@ -86,8 +91,8 @@ public class Driver {
 				gameLog = new PrintWriter("game.log", "UTF-8");
 				GameLogger gl = GameLogger.aspectOf();
 				gl.initLogger(gameLog);
-				IController loggedController = (IController)LoggingProxy.newInstance(controller, controllerLog);
-				runGame(loggedController, model, view);
+				//IController loggedController = (IController)LoggingProxy.newInstance(controller, controllerLog);
+				runGame(controller, model, view);
 				controllerLog.close();
 				modelLog.close();
 				gameLog.close();

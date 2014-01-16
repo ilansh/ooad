@@ -14,11 +14,13 @@ public class BoardGraphic extends CompositeGraphic {
 	private static final char BOARD_BOTTOM = '-';
 	private static final char EMPTY_CELL = ' ';
 	
-	private DiscFactory _cellFactory;
+	private DiscFactory _factory1;
+	private DiscFactory _factory2;
 	
 	
-	public BoardGraphic(DiscFactory factory) {  //package private
-		_cellFactory = factory;
+	public BoardGraphic(DiscFactory factory1, DiscFactory factory2) {  //package private
+		_factory1 = factory1;
+		_factory2 = factory2;
 	}
 	
 	
@@ -34,10 +36,10 @@ public class BoardGraphic extends CompositeGraphic {
 			System.out.print(CELL_BORDER);
 			for(int j = 0; j < board[0].length; j++) {
 				if(board[i][j] == PlayerNum.PLAYER1.ordinal()) {
-					_cellFactory.newInstance(i, j, PlayerNum.PLAYER1.ordinal()).drawGraphic(null);
+					_factory1.getDisc(i, j, PlayerNum.PLAYER1.ordinal()).drawGraphic(null);
 				}
 				else if(board[i][j] == PlayerNum.PLAYER2.ordinal()) {
-					_cellFactory.newInstance(i, j, PlayerNum.PLAYER2.ordinal()).drawGraphic(null);
+					_factory2.getDisc(i, j, PlayerNum.PLAYER2.ordinal()).drawGraphic(null);
 				}
 				else {
 					System.out.print(EMPTY_CELL);

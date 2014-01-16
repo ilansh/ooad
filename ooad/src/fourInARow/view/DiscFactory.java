@@ -3,58 +3,36 @@ package fourInARow.view;
 
 import java.util.HashMap;
 import java.awt.Point;
-import fourInARow.model.PlayerNum;
 
+/**
+ * concrete factories are created dynamically.
+ *
+ */
 public class DiscFactory {
 	
 	
 	//Assuming each graphic is in a different location
-	private HashMap<Point, IGameGraphic[]> _discPool; 
-	IGameGraphic _player1Disc; 
-	IGameGraphic _player2Disc;
+	private HashMap<Point, IGameGraphic> _discPool; 
+	private IGameGraphic _disc;
 	
-	public DiscFactory (IGameGraphic player1Disc, IGameGraphic player2Disc) {
-		_discPool = new HashMap<Point, IGameGraphic[]>();
-		_player1Disc = player1Disc.clone();
-		_player2Disc = player2Disc.clone();
+	public DiscFactory (IGameGraphic disc) {
+		_discPool = new HashMap<Point, IGameGraphic>();
+		_disc = disc.clone();
 	}
 	
 	
-	private IGameGraphic getCell(Point p, int playerNum) {
-		IGameGraphic retCell = null;
-		if(playerNum == PlayerNum.PLAYER1.ordinal() - 1) {				
-			retCell = _player1Disc.clone();
-		}
-		else if (playerNum == PlayerNum.PLAYER2.ordinal() - 1){
-			retCell = _player2Disc.clone();
-		}
-		else {
-			//TODO: throw exception
-		}
-		retCell.setLocation(p);
-		return retCell;
-
-	}
-	
-	public IGameGraphic newInstance(int row, int column, int playerNum) {
+	public IGameGraphic getDisc(int row, int column, int playerNum) {
 		Point p = new Point(row, column);
-		IGameGraphic retCell; 
-		playerNum = playerNum - 1; //to adjust for array
-		if(_discPool.containsKey(p) && _discPool.get(p)[playerNum] != null) { //The desired graphic is in the pool
-			retCell = _discPool.get(p)[playerNum];
+		IGameGraphic retDisc; 
+		if(_discPool.containsKey(p)) { //The desired graphic is in the pool
+			retDisc = _discPool.get(p);
 		}
 		else {  //The desired graphic isn't in the pool
-			retCell = getCell(p, playerNum);
-			if (_discPool.containsKey(p)) {  //There is another graphic at location p in the pool.
-				_discPool.get(p)[playerNum] =  retCell;  //add cell to pool
-			}
-			else { //The location doesn't exist in the pool
-				IGameGraphic[] cellArr = new IGameGraphic[2];
-				cellArr[playerNum] = retCell;
-				_discPool.put(p, cellArr);
-			}
+			retDisc = _disc.clone();
+			retDisc.setLocation(p);
+			_discPool.put(p, retDisc);
 		}
-		return retCell;
+		return retDisc;
 	}
 	
 }

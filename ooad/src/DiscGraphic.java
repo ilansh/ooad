@@ -39,4 +39,17 @@ public class DiscGraphic implements IGameGraphic {
 	public DiscGraphic clone() {
 		return new DiscGraphic(_cellContent);
 	}
+	
+	@Override
+	public int hashCode(){
+		int hash =  37 * (int)_cellContent;
+		return hash;
+	}
+	
+	public boolean equals(DiscGraphic other){
+		if(this._cellContent == other._cellContent) {
+			return true;
+		}
+		return false;
+	}
 }

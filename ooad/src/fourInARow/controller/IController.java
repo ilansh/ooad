@@ -21,5 +21,6 @@ public interface IController {
 	public void removeView(View view);
 	
 	public void printEndMessage();
+
 		
 }
