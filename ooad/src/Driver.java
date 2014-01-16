@@ -64,7 +64,7 @@ public class Driver {
 		PrintWriter gameLog = null;
 		
 		MyModel model = new MyModel(5, 6);
-		IController controller = new MyController(model);
+		IController controller = new AController(model);
 		
 		DiscGraphic disc1 = new DiscGraphic('x');
 		DiscGraphic disc2 = new DiscGraphic('o');

@@ -5,12 +5,17 @@ import java.util.ArrayList;
 import fourInARow.excpetion.ColumnFullException;
 import fourInARow.excpetion.ColumnOutOfRangeException;
 import fourInARow.model.*;
-import fourInARow.model.PlayerNum;
 import fourInARow.player.Player;
 import fourInARow.view.View;
 
-public abstract class AController implements IController {
+public class AController implements IController {
 
+	
+	private static final int QUIT_KEY = 0;
+	private static final int VS_HUMAN_KEY = 1;
+	private static final int VS_COMPUTER_KEY = 2; //TODO: char or int
+	
+	
 	protected MyModel _model;
 	protected ArrayList<View> _views;
 	protected Player _player1;
@@ -19,6 +24,7 @@ public abstract class AController implements IController {
 	protected Player _currentPlayer;
 	
 	public AController(MyModel model) {
+		_views = new ArrayList<View>();
 		_model = model;
 	}
 	
@@ -46,7 +52,12 @@ public abstract class AController implements IController {
 	}
 
 	@Override
-	public abstract void mainMenu();
+	public void mainMenu() {
+		System.out.println(Integer.toString(QUIT_KEY) + ". Exit");
+		System.out.println(Integer.toString(VS_HUMAN_KEY) + ". Play against a friend");
+		System.out.println(Integer.toString(VS_COMPUTER_KEY) + ". Play against the computer");
+		System.out.print("Please choose an option:");
+	}
 	
 
 	@Override
@@ -62,8 +73,6 @@ public abstract class AController implements IController {
 		for(int i = 0; i < _views.size(); i++) {
 			_views.get(i).update(_model, _model.getBoard());
 		}
-		
-		mainMenu();
 		
 	}
 
