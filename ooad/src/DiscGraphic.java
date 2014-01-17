@@ -46,8 +46,10 @@ public class DiscGraphic implements IGameGraphic {
 		return hash;
 	}
 	
-	public boolean equals(DiscGraphic other){
-		if(this._cellContent == other._cellContent) {
+	@Override
+	public boolean equals(Object other){
+		DiscGraphic dg = (DiscGraphic)other;
+		if(this._cellContent == dg._cellContent) {
 			return true;
 		}
 		return false;

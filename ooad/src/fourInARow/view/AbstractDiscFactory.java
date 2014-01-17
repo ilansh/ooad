@@ -30,7 +30,7 @@ public class AbstractDiscFactory {
 	
 	public void addFactoryImpl(IGameGraphic disc) {
 		if(!_factoriesPool.containsKey(disc)) {
-			_factoriesPool.put(disc, new DiscFactory(disc.clone()));
+			_factoriesPool.put(disc.clone(), new DiscFactory(disc.clone()));
 		}
 	}
 	

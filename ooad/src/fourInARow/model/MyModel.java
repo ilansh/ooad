@@ -194,5 +194,29 @@ public class MyModel extends Observable implements IModel{ //TODO: handle GameMo
 			throw new ColumnOutOfRangeException();
 		}
 	}
+	
+	public String toString() {
+		StringBuffer b = new StringBuffer();
+		for(int i = 0; i < _rows; i ++) {
+			b.append('|');
+			for(int j = 0; j < _cols; j++) {
+				if(_board[i][j] == 0) {
+					b.append(' ');
+				}
+				else if (_board[i][j] == 1) {
+					b.append('x');
+				}
+				else {
+					b.append('o');
+				}
+				b.append('|');
+			}
+			b.append('\n');
+		}
+		for(int i = 0; i < _cols ; i++) {
+			b.append(" -");
+		}
+		return b.toString();
+	}
 }
 
