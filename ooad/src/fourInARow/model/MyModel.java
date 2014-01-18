@@ -179,22 +179,6 @@ public class MyModel extends Observable implements IModel{ //TODO: handle GameMo
 		throw new ColumnFullException(); 
 	}
 	
-	// PRIVATE METHODS
-	
-	private boolean isBoardFull(){
-		if (_discsNum == _cols*_rows){
-			return true;
-		}
-		return false;
-	}
-	
-	
-	private void isColOutOfRange(int col) throws ColumnOutOfRangeException {
-		if(col < 0 || col >= _cols) {
-			throw new ColumnOutOfRangeException();
-		}
-	}
-	
 	public String toString() {
 		StringBuffer b = new StringBuffer();
 		for(int i = 0; i < _rows; i ++) {
@@ -218,5 +202,23 @@ public class MyModel extends Observable implements IModel{ //TODO: handle GameMo
 		}
 		return b.toString();
 	}
+	
+	// PRIVATE METHODS
+	
+	private boolean isBoardFull(){
+		if (_discsNum == _cols*_rows){
+			return true;
+		}
+		return false;
+	}
+	
+	
+	private void isColOutOfRange(int col) throws ColumnOutOfRangeException {
+		if(col < 0 || col >= _cols) {
+			throw new ColumnOutOfRangeException();
+		}
+	}
+	
+	
 }
 

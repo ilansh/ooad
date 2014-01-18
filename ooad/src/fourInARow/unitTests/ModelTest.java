@@ -34,20 +34,7 @@ public class ModelTest {
 	
 	@Test
 	public void testBoardFull(){
-		MyModel model = new MyModel(1,4);
-		assertEquals("Board isn't full", false, model.isBoardFull());
-		for(int i=0; i<4; i++){
-			try {
-				GameStatus status = model.addDisc(i, 1);
-			} catch (ColumnFullException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ColumnOutOfRangeException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		assertEquals("Board isn't full", false, model.isBoardFull());
+
 	}
 
 }

@@ -1,6 +1,6 @@
 package fourInARow.player;
+import fourInARow.excpetion.NullArgumentNotPermittedException;
 import fourInARow.model.MyModel;
-
 
 public class Player implements IPlayer{
 	
@@ -11,17 +11,17 @@ public class Player implements IPlayer{
 	int _playerNum;
 	
 	
-	public Player(PlayerStrategy strategy, String name, int playerNum) {
-		_strategy = strategy;
-		_name = name;
+	public Player(PlayerStrategy strategy, String name, int playerNum) throws NullArgumentNotPermittedException{
 		_playerNum = playerNum;
+		setStrategy(strategy);
+		setName(name);
 	}
 	
 
 	@Override
-	public void setName(String name) {
+	public void setName(String name) throws NullArgumentNotPermittedException{
 		if(name == null) {
-			//TODO: throw exception
+			throw new NullArgumentNotPermittedException();
 		}
 		_name = name;
 		
@@ -33,9 +33,9 @@ public class Player implements IPlayer{
 	}
 
 	@Override
-	public void setStrategy(PlayerStrategy strategy) {
+	public void setStrategy(PlayerStrategy strategy) throws NullArgumentNotPermittedException {
 		if(strategy == null) {
-			//TODO: throw exception
+			throw new NullArgumentNotPermittedException();
 		}
 		_strategy = strategy;
 		
@@ -58,9 +58,9 @@ public class Player implements IPlayer{
 	}
 
 	@Override
-	public int move(MyModel model) {
+	public int move(MyModel model) throws NullArgumentNotPermittedException {
 		if(model == null) {
-			//TODO: Throw Exception
+			throw new NullArgumentNotPermittedException();
 		}
 		return _strategy.makeMove(model);
 		

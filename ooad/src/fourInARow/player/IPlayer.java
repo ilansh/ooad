@@ -1,14 +1,15 @@
 package fourInARow.player;
+import fourInARow.excpetion.NullArgumentNotPermittedException;
 import fourInARow.model.MyModel;
 
 
 public interface IPlayer {
 	
-	public void setName(String name);
+	public void setName(String name)  throws NullArgumentNotPermittedException;
 	
 	public String getName();
 	
-	public void setStrategy(PlayerStrategy strategy);
+	public void setStrategy(PlayerStrategy strategy)  throws NullArgumentNotPermittedException;
 	
 	public int getPlayerNum();
 	
@@ -16,6 +17,6 @@ public interface IPlayer {
 	
 	public void printMoveMessage();
 
-	public int move(MyModel model);
+	public int move(MyModel model) throws NullArgumentNotPermittedException;
 	
 }
