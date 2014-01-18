@@ -9,6 +9,7 @@ import fourInARow.aspects.GameLogger;
 import fourInARow.controller.*;
 import fourInARow.excpetion.ColumnFullException;
 import fourInARow.excpetion.ColumnOutOfRangeException;
+import fourInARow.excpetion.NullArgumentNotPermittedException;
 import fourInARow.view.*;
 import fourInARow.model.*;
 import fourInARow.loggingProxy.*;
@@ -21,13 +22,12 @@ public class Driver {
 	
 //	GameLogger gl;
 	
-	public static void runGame(IController controller, MyModel model, View view) {
+	public static void runGame(IController controller, MyModel model, View view) throws NullArgumentNotPermittedException {
 
 		
 	
 		
 		controller.addView(view);
-		
 		
 		controller.mainMenu();
 		controller.initViews();
@@ -103,6 +103,8 @@ public class Driver {
 			} catch (UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} catch(NullArgumentNotPermittedException nanpe){
+				System.out.println("Null arguments not permittes");//TODO exit?
 			}
 //		}
 //		else {

@@ -177,7 +177,7 @@ public class MyController implements IController{
 
 
 	@Override
-	public GameStatus playTurn() throws ColumnFullException, ColumnOutOfRangeException, NumberFormatException {
+	public GameStatus playTurn() throws ColumnFullException, ColumnOutOfRangeException, NumberFormatException, NullArgumentNotPermittedException {
 		if(_gameStatus != GameStatus.ONGOING) {
 			//TODO: Throw Exception
 		}
@@ -196,7 +196,7 @@ public class MyController implements IController{
 	
 
 	@Override
-	public void mainMenu() {
+	public void mainMenu() throws NullArgumentNotPermittedException {
 		if(_gameStatus != GameStatus.NOT_INIT) { //game is inited only after first move
 			//TODO: Throw exception		
 		}

@@ -8,9 +8,9 @@ import fourInARow.view.View;
 
 public interface IController {
 	
-	public GameStatus playTurn() throws ColumnFullException, ColumnOutOfRangeException, NumberFormatException;
+	public GameStatus playTurn() throws ColumnFullException, ColumnOutOfRangeException, NumberFormatException, NullArgumentNotPermittedException;
 	
-	public void mainMenu();
+	public void mainMenu() throws NullArgumentNotPermittedException;
 	
 	public GameStatus getGameStatus();
 	

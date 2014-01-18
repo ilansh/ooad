@@ -10,9 +10,7 @@ public class MyModel extends Observable implements IModel{ //TODO: handle GameMo
 
 	private static final int WIN_COUNT = 4;
 	
-	
-	
-	
+
 	// MEMBERS
 	private int [][] _board;
 	private int _cols;
@@ -50,7 +48,7 @@ public class MyModel extends Observable implements IModel{ //TODO: handle GameMo
 		
 //		int cell[]= {row, col}; //TODO: send all the board or just the cell
 		setChanged();
-		notifyObservers(getBoard()); //TODO: send copy or real
+		notifyObservers(getBoard());
 	
 		if (isWinner(_board, col, row, playerNum)){
 			return GameStatus.WIN; 
@@ -80,8 +78,6 @@ public class MyModel extends Observable implements IModel{ //TODO: handle GameMo
 		return _cols;
 	}
 	
-	
-	//TODO optimize
 	public boolean isWinner(int[][] board, int col, int row, int playerNum){
 		int count = 1;
 
