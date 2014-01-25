@@ -1,5 +1,6 @@
 package fourInARow.aspects;
 
+import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Observable;
 
@@ -8,11 +9,12 @@ import fourInARow.view.*;
 
 public aspect GameLogger { //TODO: optimize
 
-	 private PrintWriter _logStream = null;
+	 private static PrintWriter _logStream = null;
 	
 	 private long _turnStartTime;
 	 
-	 public void initLogger(PrintWriter logStream) {
+	 
+	 public static void initLogStream(PrintWriter logStream) {
 		 _logStream = logStream;
 	 }
 	 

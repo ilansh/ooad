@@ -1,8 +1,6 @@
 package fourInARow.view;
 
-import java.awt.Point;
 import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  * Variation on Abstract factory - we create disc factories dynamically

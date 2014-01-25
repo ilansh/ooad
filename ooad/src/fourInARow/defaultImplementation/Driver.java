@@ -106,8 +106,9 @@ public class Driver {
 				controllerLog = new PrintWriter("contoller.log", "UTF-8");
 				modelLog = new PrintWriter("model.log", "UTF-8");
 				gameLog = new PrintWriter("game.log", "UTF-8");
-				GameLogger gl = GameLogger.aspectOf();
-				gl.initLogger(gameLog);
+//				GameLogger gl = GameLogger.aspectOf();
+//				gl.initLogger(gameLog);
+				GameLogger.initLogStream(gameLog);
 				//IController loggedController = (IController)LoggingProxy.newInstance(controller, controllerLog);
 				runGame(controller, model, view);
 				controllerLog.close();

@@ -2,7 +2,6 @@ package fourInARow.view;
 
 import java.util.Observable;
 import java.util.Observer;
-import fourInARow.excpetion.*;
 
 public class View implements Observer{ //TODO: maybe singleton
 
