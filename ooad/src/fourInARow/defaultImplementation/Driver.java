@@ -9,7 +9,10 @@ import fourInARow.aspects.GameLogger;
 import fourInARow.controller.*;
 import fourInARow.excpetion.ColumnFullException;
 import fourInARow.excpetion.ColumnOutOfRangeException;
+import fourInARow.excpetion.NoViewsConfiguredException;
+import fourInARow.excpetion.NotEnoughPlayersException;
 import fourInARow.excpetion.NullArgumentNotPermittedException;
+import fourInARow.excpetion.TooManyPlayersEception;
 import fourInARow.view.*;
 import fourInARow.model.*;
 import fourInARow.loggingProxy.*;
@@ -29,8 +32,21 @@ public class Driver {
 		
 		controller.addView(view);
 		
-		controller.mainMenu();
-		controller.initViews();
+		try {
+			controller.initGame();
+		} catch (TooManyPlayersEception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoViewsConfiguredException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotEnoughPlayersException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		GameStatus status = controller.getGameStatus();
 		

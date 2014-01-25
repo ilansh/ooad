@@ -1,30 +1,30 @@
 package fourInARow.player;
+
 import fourInARow.excpetion.NullArgumentNotPermittedException;
 import fourInARow.model.MyModel;
 
-public class Player implements IPlayer{
-	
+public class Player implements IPlayer {
+
 	PlayerStrategy _strategy;
-	
+
 	String _name;
-	
+
 	int _playerNum;
-	
-	
-	public Player(PlayerStrategy strategy, String name, int playerNum) throws NullArgumentNotPermittedException{
+
+	public Player(PlayerStrategy strategy, String name, int playerNum)
+			throws NullArgumentNotPermittedException {
 		_playerNum = playerNum;
 		setStrategy(strategy);
 		setName(name);
 	}
-	
 
 	@Override
-	public void setName(String name) throws NullArgumentNotPermittedException{
-		if(name == null) {
+	public void setName(String name) throws NullArgumentNotPermittedException {
+		if (name == null) {
 			throw new NullArgumentNotPermittedException();
 		}
 		_name = name;
-		
+
 	}
 
 	@Override
@@ -33,12 +33,13 @@ public class Player implements IPlayer{
 	}
 
 	@Override
-	public void setStrategy(PlayerStrategy strategy) throws NullArgumentNotPermittedException {
-		if(strategy == null) {
+	public void setStrategy(PlayerStrategy strategy)
+			throws NullArgumentNotPermittedException {
+		if (strategy == null) {
 			throw new NullArgumentNotPermittedException();
 		}
 		_strategy = strategy;
-		
+
 	}
 
 	@Override
@@ -54,15 +55,15 @@ public class Player implements IPlayer{
 	@Override
 	public void printMoveMessage() {
 		_strategy.printMoveMessage(_playerNum);
-		
+
 	}
 
 	@Override
 	public int move(MyModel model) throws NullArgumentNotPermittedException {
-		if(model == null) {
+		if (model == null) {
 			throw new NullArgumentNotPermittedException();
 		}
 		return _strategy.makeMove(model);
-		
+
 	}
 }
