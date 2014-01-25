@@ -2,10 +2,12 @@ package fourInARow.view;
 
 import java.util.HashMap;
 
+import fourInARow.excpetion.NullArgumentNotPermittedException;
+
 /**
  * Variation on Abstract factory - we create disc factories dynamically
- * by getting a disc graphic implementation from the user and creating a
- * factory for that implementation.
+ * by getting two disc graphic implementations from the user and creating a
+ * factory for them.
  * All users implementing the same graphic interface will get the same discFactory.
  *
  */
@@ -26,18 +28,19 @@ public class AbstractDiscFactory {
 		return _instance;
 	}
 	
-	public void addFactoryImpl(IGameGraphic disc) {
-		if(!_factoriesPool.containsKey(disc)) {
-			_factoriesPool.put(disc.clone(), new DiscFactory(disc.clone()));
+	public DiscFactory getFactoryImpl(IGameGraphic disc1, IGameGraphic disc2) throws NullArgumentNotPermittedException {
+		if(disc1 == null || disc2 == null) {
+			throw new NullArgumentNotPermittedException();
 		}
-	}
-	
-	public DiscFactory getFactory(IGameGraphic discGraphic) {
-		if (!_factoriesPool.containsKey(discGraphic)) {
-			return null;
-			//TODO maybe throw exception
+		DiscFactory df = _factoriesPool.get(disc1);
+		if(df == null) {
+			//using clone to prevent the disc1 being changed from outside
+			//since map keys should be immutable.
+			//and the same goes for the discs in the factory. we don't want them to be changed
+			df = new DiscFactory(disc1.clone(), disc2.clone());
+			_factoriesPool.put(disc1.clone(), new DiscFactory(disc1.clone(), disc2.clone()));
 		}
-		return _factoriesPool.get(discGraphic);
+		return df;
 	}
 	
 }

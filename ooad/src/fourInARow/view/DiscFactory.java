@@ -4,6 +4,8 @@ package fourInARow.view;
 import java.util.HashMap;
 import java.awt.Point;
 
+import fourInARow.excpetion.InvalidPlayerNumException;
+
 /**
  * concrete factories are created dynamically.
  *
@@ -11,26 +13,25 @@ import java.awt.Point;
 public class DiscFactory {
 	
 	
-	//Assuming each graphic is in a different location
-	private HashMap<Point, IGameGraphic> _discPool; 
-	private IGameGraphic _disc;
+	private IGameGraphic _disc1;
+	private IGameGraphic _disc2;
 	
-	public DiscFactory (IGameGraphic disc) {
-		_discPool = new HashMap<Point, IGameGraphic>();
-		_disc = disc.clone();
+	public DiscFactory (IGameGraphic disc1, IGameGraphic disc2) {
+		_disc1 = disc1;
+		_disc2 = disc2;
 	}
 	
 	
-	public IGameGraphic getDisc(int row, int column, int playerNum) {
-		Point p = new Point(row, column);
-		IGameGraphic retDisc; 
-		if(_discPool.containsKey(p)) { //The desired graphic is in the pool
-			retDisc = _discPool.get(p);
+	public IGameGraphic getDisc(int playerNum) throws InvalidPlayerNumException {
+		IGameGraphic retDisc = null; 
+		if(playerNum == 1) { 
+			retDisc = _disc1;
 		}
-		else {  //The desired graphic isn't in the pool
-			retDisc = _disc.clone();
-			retDisc.setLocation(p);
-			_discPool.put(p, retDisc);
+		else if(playerNum == 2) { 
+			retDisc = _disc2;
+		}
+		else {
+			throw new InvalidPlayerNumException();
 		}
 		return retDisc;
 	}

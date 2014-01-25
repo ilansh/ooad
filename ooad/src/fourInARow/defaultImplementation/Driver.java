@@ -85,11 +85,15 @@ public class Driver {
 		
 		
 		AbstractDiscFactory adf = AbstractDiscFactory.newInsance();
-		adf.addFactoryImpl(disc1);
-		adf.addFactoryImpl(disc2);
-		DiscFactory df1 = adf.getFactory(disc1);
-		DiscFactory df2 = adf.getFactory(disc2);
-		BoardGraphic board = new BoardGraphic(df1, df2);
+		DiscFactory df = null;
+		try {
+			df = adf.getFactoryImpl(disc1, disc2);
+		} catch (NullArgumentNotPermittedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+//		DiscFactory df2 = adf.getFactory(disc2);
+		BoardGraphic board = new BoardGraphic(df);
 		
 		WindowGraphic window = new WindowGraphic(); //TODO" remove this
 		window.addGraphic(board);
