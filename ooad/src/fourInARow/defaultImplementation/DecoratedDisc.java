@@ -17,12 +17,6 @@ public class DecoratedDisc extends CompositeGraphic {
 	public IGameGraphic clone() {
 		return new DecoratedDisc();
 	}
-	
-	@Override
-	public int hashCode() {
-		int hash = 37 * (int) '*';
-		return hash;
-	}
 
 //	@Override
 //	public boolean equals(Object other) {

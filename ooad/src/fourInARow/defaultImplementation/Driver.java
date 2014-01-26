@@ -11,14 +11,13 @@ public class Driver {
 
 	public static final String LOG_ENABLED = "--log";
 
-	// GameLogger gl;
 
-	public static void runGame(IController controller, IModel model)
+	public static void runGame(AController controller, IModel model)
 			throws NullArgumentNotPermittedException {
 
 		try {
 			controller.initGame();
-		} catch (TooManyPlayersEception e) {
+		} catch (TooManyPlayersException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NoViewsConfiguredException e) {
@@ -43,6 +42,9 @@ public class Driver {
 				System.out.println("Column out of range");
 			} catch (NumberFormatException nfe) { // makemove by human
 				System.out.println("illegal column format");
+			} catch (GameNotOngoingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		} while (status != GameStatus.WIN && status != GameStatus.DRAW);
 
@@ -64,17 +66,9 @@ public class Driver {
 
 		MyModel model = new MyModel(5, 6);
 		IModel loggedModel = (IModel)LoggingProxy.newInstance(model, modelLog);
-		IController controller = null;
+		AController controller = null;
 		try {
 			controller = new MyController(loggedModel);
-		} catch (NullArgumentNotPermittedException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
-
-		
-
-		try {
 		// if(args.length > 0 && args[0].equalsIgnoreCase(LOG_ENABLED)) {
 
 			// GameLogger gl = GameLogger.aspectOf();

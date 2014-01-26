@@ -14,7 +14,7 @@ public interface IController {
 	public GameStatus getGameStatus();
 
 	public void initGame() throws NullArgumentNotPermittedException,
-			TooManyPlayersEception, NoViewsConfiguredException,
+			TooManyPlayersException, NoViewsConfiguredException,
 			NotEnoughPlayersException, Exception;
 
 	public void addView(View view) throws NullArgumentNotPermittedException;
@@ -22,7 +22,7 @@ public interface IController {
 	public void removeView(View view) throws NullArgumentNotPermittedException;
 
 	public void addPlayer(PlayerStrategy st, String name)
-			throws NullArgumentNotPermittedException, TooManyPlayersEception;
+			throws NullArgumentNotPermittedException, TooManyPlayersException;
 
 	public void printEndMessage();
 

@@ -1,11 +1,11 @@
 package fourInARow.aspects;
 
-import java.io.FileNotFoundException;
+import fourInARow.unitTests.*;
 import java.io.PrintWriter;
 import java.util.Observable;
 
 import fourInARow.model.*;
-import fourInARow.view.*;
+import fourInARow.controller.*;
 
 public aspect GameLogger { // TODO: optimize
 
@@ -18,14 +18,14 @@ public aspect GameLogger { // TODO: optimize
 	}
 
 	// point cuts
-	pointcut startGame(): call(void mainMenu());
+	pointcut startGame(): call(boolean mainMenu());
 
 	pointcut startTurn(): call(GameStatus playTurn());
 
-	pointcut makeMove(int col, int playerNum): call(GameStatus addDisc(int, int)) && args(col, playerNum);
+	pointcut makeMove(int col, int playerNum): call(GameStatus addDisc(int, int)) && args(col, playerNum) && !within(ModelTest);
 
 	// TODO within doesnt work because aspect couldnt know when it'll be called
-	pointcut drawBoard(Observable model, Object board): call(void update(Observable, Object)) && args(model, board);// && within(View);
+	pointcut drawBoard(Observable model, Object board): call(void update(Observable, Object)) && args(model, board) && within(AController);
 
 	pointcut drawTurnBoard(Object board): call(void notifyObservers(Object)) && args(board) && within(MyModel);
 

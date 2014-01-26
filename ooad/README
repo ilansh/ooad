@@ -27,7 +27,7 @@ The basic view components are the View class containing the root to the composit
 
 Controller
 -----------
-We used an abstract controller class which implements most of the game logic (assuming it would not require changing in the future).
+We used an abstract controller class which implements most of the game logic.
 A Client who wants to use our controller should extend it with a concrete class implementing the mainMenu method.
 In our abstract class we call the client's mainMenu implementation in a loop to allow him to perform as many operations as he wants until he is ready to start the game.
 Within the main menu the client can perform different operations on the view and choose different game types.
@@ -67,7 +67,7 @@ How we met the requirements?
 	This pattern is ideal for future implementation of GUI.
 	In addition, the MVC pattern enables using views dynamically, and in particular using multiple views simulatniously, changing the views dynamically, adding/removing views and more.
 	Note that the game can also be ran without views at all, emphasizing the low coupling of our code.
-	Some examples of adding/removing views are given in our defaut implementation.
+	Some examples of adding/removing views are given in our default implementation.
 
 2.	We implemented this requirement by simple use of the strategy pattern. The client simply implements our PlayerStrategy Interface with his own strategy.
 	makeMove is the strategy method, and the client received a model and can decide based on the board which move to make.
@@ -85,6 +85,19 @@ How we met the requirements?
 	An example for using this can be seen in our default implementation.
 	A good example would be to add another display and then decorate the disc. You can see that the disc is only decorated in on of the displayes.
 
-4. This was the most difficult requirement to implement correctly and make it work with our 
+4. This was the most difficult requirement to implement correctly and make it work with our MVC pattern.
+   We implemented a flyweight pattern for the discs - since all discs with the same graphics are basically the same object, we divided them to "player 1" and "player 2" discs (each with different graphic).
+   This pattern fits specifically for discs because disc objects can be shared between multiple instances since they are leaves in the composite heirarchy.
+   BoardGraphic however, can't be used with flyweight, since boards are composite objects, and even boards with the same underlying graphic may contain different children (such as discs).
+   To make the flyweight work smoothly with the other requirements, we used a variation of abstract factory.
+   The reason is that while we want to save memory on disc graphics, we also want to allow different disc graphics to be implemented for our game, and the abstract factory fits this purpose.
+   The abstract factory is a singleton shared among all using instances, and supllies them with concrete factories.
+   Each of these concrete factories supplies discs according to the user's request.
+   Instead of asking the client to implement concrete factories himself, we implemented a "pool" of factories.
+   The client can get a factory for his disc implementation simply by asking our abstract factory for it. Note that this requires the client to implement hashCode and equals for his disc graphic objects.
+   The abstract factory is provided with the disc graphic implementation, and checks in its map if a factory already exists for this implementation (We assume a disc1 implementation corresponds to a single disc2 implementation, i.e. they always come in pairs).
+   If a factory exists, we return it, otherwise, we create a new one for the given implementation.
+   Also note that GameGraphic implements Clonable interface. This is specifiaclly for DiscGraphics which are expected to implement clone, so we can use cloned discs as HashMap keys (we don't want risking the key changing during, so we use a clone).
+   //decorator explanation
 	
 

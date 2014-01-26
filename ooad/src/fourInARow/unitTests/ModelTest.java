@@ -2,8 +2,12 @@ package fourInARow.unitTests;
 
 import static org.junit.Assert.*;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+
 import org.junit.*;
 
+import fourInARow.aspects.GameLogger;
 import fourInARow.excpetion.*;
 import fourInARow.model.*;
 
@@ -11,15 +15,25 @@ public class ModelTest {
 	
 	private MyModel _model;
 	
+	private static PrintWriter testWriter;
+	
 	
 	@Before
 	public void setUp(){
 		_model = new MyModel(5, 6);
+		try {
+			testWriter = new PrintWriter("testGame.log");
+			GameLogger.initLogStream(testWriter);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@After
 	public void tearDown(){
 		//run after each test
+		testWriter.close();
 		
 	}
 	
@@ -45,25 +59,87 @@ public class ModelTest {
 		int[][] board2 = model.getBoard();
 		assertFalse("Boards shouldn't be identical", board1 == board2);
 	}
-	
-	//test firstEmptyRow function
+
 	@Test
-	public void testFirstEmptyRow() throws ColumnFullException{
+	public void testFirstEmptyRowFirstRow() throws ColumnFullException{
 		MyModel model = _model;
-		//TODO
-		//assertEquals("First empty row must be " + (model.getNumRows()-1), (model.getNumRows()-1), model.firstEmptyRow(0));
 		assertEquals("First empty row must be 5", 5, model.firstEmptyRow(0));
 	}
 	
-	//TODO addDisc tests - error with aspectJ
+	@Test
+	public void testFirstEmptyRowLastRow() throws ColumnFullException, ColumnOutOfRangeException{
+		MyModel model = _model;
+		_model.addDisc(0, 1);
+		_model.addDisc(0, 1);
+		_model.addDisc(0, 1);
+		_model.addDisc(0, 1);
+		_model.addDisc(0, 1);
+		assertEquals("First empty row must be 0", 0, model.firstEmptyRow(0));
+	}
 	
-	//TODO error with aspectJ! what to do?!?!?!?!?!?!?
+	@Test
+	public void testFirstEmptyRowMidRow() throws ColumnFullException, ColumnOutOfRangeException{
+		MyModel model = _model;
+		_model.addDisc(0, 1);
+		_model.addDisc(0, 1);
+		assertEquals("First empty row must be 3", 3, model.firstEmptyRow(0));
+	}
+	
 	@Test (expected = ColumnFullException.class)
-	public void testFirstEmptyRowNotValid() throws ColumnFullException, ColumnOutOfRangeException{
-		MyModel model = new MyModel(2, 1);
-		GameStatus status; 
-		status = model.addDisc(0, 1);
+	public void testFirstEmptyRowColumnFull() throws ColumnFullException, ColumnOutOfRangeException{
+		MyModel model = new MyModel(8, 1);
+		model.addDisc(0, 1);
 		model.firstEmptyRow(0);
+	}
+	
+	@Test 
+	public void testAddDiscWinner() throws ColumnFullException, ColumnOutOfRangeException{
+		MyModel model = new MyModel(4, 1);
+		GameStatus status; 
+		model.addDisc(0, 1);
+		model.addDisc(1, 1);
+		model.addDisc(2, 1);
+		status = model.addDisc(3, 1);
+		assertEquals("Status should be WIN", GameStatus.WIN, status);
+	}
+	
+	@Test 
+	public void testAddDiscOngoing() throws ColumnFullException, ColumnOutOfRangeException{
+		MyModel model = new MyModel(4, 1);
+		GameStatus status; 
+		model.addDisc(0, 1);
+		model.addDisc(1, 1);
+		status = model.addDisc(3, 1);
+		assertEquals("Status should be ONGOING", GameStatus.ONGOING, status);
+	}
+	
+	@Test 
+	public void testAddDiscDraw() throws ColumnFullException, ColumnOutOfRangeException{
+		MyModel model = new MyModel(4, 1);
+		GameStatus status; 
+		model.addDisc(0, 1);
+		model.addDisc(1, 1);
+		model.addDisc(2, 2);
+		status = model.addDisc(3, 1);
+		assertEquals("Status should be DRAW", GameStatus.DRAW, status);
+	}
+	
+	@Test (expected = ColumnOutOfRangeException.class)
+	public void testAddDiscOutOfRangePos() throws ColumnFullException, ColumnOutOfRangeException{
+		MyModel model = new MyModel(4, 1);
+		model.addDisc(4, 1);
+	}
+	
+	@Test (expected = ColumnOutOfRangeException.class)
+	public void testAddDiscOutOfRangeNeg() throws ColumnFullException, ColumnOutOfRangeException{
+		MyModel model = new MyModel(4, 1);
+		model.addDisc(-1, 1);
+	}
+	
+	@Test (expected = ColumnOutOfRangeException.class)
+	public void testAddDiscOutOfRangeIntMax() throws ColumnFullException, ColumnOutOfRangeException{
+		MyModel model = new MyModel(4, 1);
+		model.addDisc(Integer.MAX_VALUE, 1);
 	}
 	
 

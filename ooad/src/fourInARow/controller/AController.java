@@ -7,7 +7,7 @@ import fourInARow.model.*;
 import fourInARow.player.*;
 import fourInARow.view.*;
 
-public abstract class AController implements IController {
+public abstract class AController {
 
 	protected IModel _model;
 	protected ArrayList<View> _views;
@@ -36,12 +36,11 @@ public abstract class AController implements IController {
 
 	protected abstract boolean mainMenu() throws Exception;
 
-	@Override
 	public GameStatus playTurn() throws ColumnFullException,
 			ColumnOutOfRangeException, NumberFormatException,
-			NullArgumentNotPermittedException {
+			NullArgumentNotPermittedException, GameNotOngoingException {
 		if (_gameStatus != GameStatus.ONGOING) {
-			// TODO: Throw Exception
+			throw new GameNotOngoingException();
 		}
 		int col;
 		_currentPlayer.printMoveMessage();
@@ -53,9 +52,8 @@ public abstract class AController implements IController {
 		return _gameStatus;
 	}
 
-	@Override
 	public void initGame() throws NullArgumentNotPermittedException,
-			TooManyPlayersEception, NoViewsConfiguredException,
+			TooManyPlayersException, NoViewsConfiguredException,
 			NotEnoughPlayersException, Exception {
 		if (_views.isEmpty()) {
 			throw new NoViewsConfiguredException();
@@ -74,7 +72,6 @@ public abstract class AController implements IController {
 		_gameStatus = GameStatus.ONGOING;
 	}
 
-	@Override
 	public void addView(View view) throws NullArgumentNotPermittedException {
 		if (view == null) {
 			throw new NullArgumentNotPermittedException();
@@ -84,7 +81,6 @@ public abstract class AController implements IController {
 
 	}
 
-	@Override
 	public void removeView(View view) throws NullArgumentNotPermittedException {
 		if (view == null) {
 			throw new NullArgumentNotPermittedException();
@@ -93,12 +89,10 @@ public abstract class AController implements IController {
 		_model.getObservable().deleteObserver(view);
 	}
 
-	@Override
 	public GameStatus getGameStatus() {
 		return _gameStatus;
 	}
 
-	@Override
 	public void printEndMessage() {
 		if (_gameStatus == GameStatus.WIN) {
 			_currentPlayer.printWinMessage();
@@ -109,15 +103,14 @@ public abstract class AController implements IController {
 		}
 	}
 
-	@Override
 	public void addPlayer(PlayerStrategy st, String name)
-			throws NullArgumentNotPermittedException, TooManyPlayersEception {
+			throws NullArgumentNotPermittedException, TooManyPlayersException {
 		if (_player1 == null) {
 			_player1 = new Player(st, name, 1);
 		} else if (_player2 == null) {
 			_player2 = new Player(st, name, 2);
 		} else {
-			throw new TooManyPlayersEception();
+			throw new TooManyPlayersException();
 		}
 	}
 
