@@ -7,11 +7,6 @@ public abstract class CompositeGraphic implements IGameGraphic {
 
 	protected ArrayList<IGameGraphic> _graphics = new ArrayList<IGameGraphic>();
 	
-	@Override
-	public void setLocation(Point p) {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public void drawGraphic(int[][] board) {
@@ -36,9 +31,5 @@ public abstract class CompositeGraphic implements IGameGraphic {
 	public String toString() {
 		return getClass().getName();
 	}
-//	public GameGraphic getChild(int index) {
-//		return _graphics.get(index);
-//
-//	}
 
 }

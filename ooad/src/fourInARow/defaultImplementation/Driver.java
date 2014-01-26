@@ -4,7 +4,6 @@ import java.io.PrintWriter;
 import fourInARow.aspects.GameLogger;
 import fourInARow.controller.*;
 import fourInARow.excpetion.*;
-import fourInARow.view.*;
 import fourInARow.loggingProxy.LoggingProxy;
 import fourInARow.model.*;
 

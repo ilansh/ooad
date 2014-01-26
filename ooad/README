@@ -1,0 +1,90 @@
+
+General implementation remarks:
+-------------------------------
+
+We designed our library using the MVC pattern.
+This pattern allows good seperaition of concerns, and low coupling.
+
+Model
+------
+
+Our model is the game board, and the model class implements some basic operations on the board.
+The model holds a delegated observable object to allow the views an event based access to the board.
+The observer pattern is push based - The views update only upon board change, except for the initializing stage 
+when the views ask the model for the initial board state (this allows for future implementation of saved games).
+The reason we used delegated observable is mainly for the dynamic proxy use:
+We wanted to use our board with the logging proxy, thus needing to implement an interface, and referencing the board
+with the interface type throughout the code.
+The problem is caused by the inability of the interface to extend Observable, which causes a situation where
+new implementations of our model interface might not extend Observable (which we didn't want to allow).
+
+View
+-----
+As usually used in MVC, the view implements the observer interface - observing the model.
+The view also uses a comoposite design pattern, to allow for future graphic UI, and a variation of abstract factory and flyweight for memory optimization (further details ahead).
+The basic view components are the View class containing the root to the composite graphic object, IGameGraphic interface, and the CompositeGraphic abstract class.
+
+
+Controller
+-----------
+We used an abstract controller class which implements most of the game logic (assuming it would not require changing in the future).
+A Client who wants to use our controller should extend it with a concrete class implementing the mainMenu method.
+In our abstract class we call the client's mainMenu implementation in a loop to allow him to perform as many operations as he wants until he is ready to start the game.
+Within the main menu the client can perform different operations on the view and choose different game types.
+Our abstract controller also uses a player class which is used purely for our convenience of player abstraction.
+The controller is instanciated with a model (the abstract controller has a protected constructor which must be called from any extending class), and can have views added and removed.
+
+
+Default Implementation
+-----------------------
+Our default implementation is actually a sample of how our library should be used.
+We implemented some basic graphics and playing strategies, and created a simple game loop.
+
+
+Exceptions
+-----------
+We mainly used exceptions so our library will be relatively foolproof, but only implemented the most basic Exception structure possible (since it is less important for the exercise and its requirements).
+
+
+Logging
+--------
+As stated above, our dynamic proxy is set on the model and outputs to a file called model.log.
+
+Aspects
+--------
+?????
+
+Unit tests
+-----------
+?????
+
+ 
+
+
+How we met the requirements?
+
+1.	As stated above, we layed down the infrastructue for clients to use the composite pattern.
+	This pattern is ideal for future implementation of GUI.
+	In addition, the MVC pattern enables using views dynamically, and in particular using multiple views simulatniously, changing the views dynamically, adding/removing views and more.
+	Note that the game can also be ran without views at all, emphasizing the low coupling of our code.
+	Some examples of adding/removing views are given in our defaut implementation.
+
+2.	We implemented this requirement by simple use of the strategy pattern. The client simply implements our PlayerStrategy Interface with his own strategy.
+	makeMove is the strategy method, and the client received a model and can decide based on the board which move to make.
+	The client's new strategy can then be used in the game by sending it to our abstract controller addPlayer method.
+	This might be implemented by the client's controller instance, as part of his main menu (just as our default controller does).
+
+3.  We decided to implement this requirement by "hijacking" the composite pattern and using it as decorator.
+	Since these patterns are quite similar in structure, it is not a big stretch - CompositeGraphic objects can be easily used as concrete decorators (They have an array of other graphic objects with the same basic interface).
+	This mecahnism can be used to add graphic elements to each object.
+	In practice, we helped the client even more and implemented a "decorate" method in our View class, for easy decoration, while maintaining the Composite heirarchy
+	This method receives three arguments:
+	* father - The father of the object being decorated. If decorating root, father should be null, otherwise, will add the decorator and remove decoratee from children
+	* decorator - The decorator object, wrapping the decorated object. 
+	* decoratee - The decorated object, wrapped by the decorator.
+	An example for using this can be seen in our default implementation.
+	A good example would be to add another display and then decorate the disc. You can see that the disc is only decorated in on of the displayes.
+
+4. This was the most difficult requirement to implement correctly and make it work with our 
+	
+

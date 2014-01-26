@@ -95,8 +95,8 @@ public class MyController extends AController{
 				+ ". Remove a view from the game - SAMPLE IMPLEMENTATION! REMOVES FIRST VIEW");
 		System.out.println(Integer.toString(DECORATE_BOARD_KEY)
 				+ ". Decorate the board - SAMPLE IMPLEMENTATION! DECORATES BOARD IN FIRST VIEW WITH _____ ON TOP");
-//		System.out.println(Integer.toString(DECORATE_DISC_KEY)
-//				+ ". Decorate the disc");
+		System.out.println(Integer.toString(DECORATE_DISC_KEY)
+				+ ". Decorate the disc - SAMPLE IMPLEMENTATION! DECORATES THE DISC WITH '*', THIS MESSES UP THE BOARD A LITTLE");
 		
 		System.out.print("Please choose an option:");
 	}
@@ -142,6 +142,11 @@ public class MyController extends AController{
 		else if (choice == DECORATE_BOARD_KEY) {
 			CompositeGraphic b = new BorderBoard();
 			_views.get(0).decorate(null, b, _boards.get(0));
+		}
+		else if (choice == DECORATE_DISC_KEY) {
+			CompositeGraphic d = new DecoratedDisc();
+			_views.get(0).decorate(_boards.get(0), d, _1discs.get(0));
+			_views.get(0).decorate(_boards.get(0), d, _2discs.get(0));
 		}
 		else if (choice == QUIT_KEY) {
 			System.out.println("Bye bye!");

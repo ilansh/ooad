@@ -1,17 +1,11 @@
 package fourInARow.defaultImplementation;
 
 
-import java.awt.Point;
 
 import fourInARow.view.CompositeGraphic;
 import fourInARow.view.IGameGraphic;
 
 public class WindowGraphic extends CompositeGraphic{
-	@Override
-	public void setLocation(Point p) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void drawGraphic(int[][] board) {
