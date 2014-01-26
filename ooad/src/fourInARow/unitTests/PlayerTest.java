@@ -18,10 +18,14 @@ public class PlayerTest {
 	private MyModel _model;
 	
 	@Before
-	public void setUp() throws NullArgumentNotPermittedException{
+	public void setUp() {
 		_st = new SimpleComputerStrategy();
-		_pl = new Player(_st, "Ehud", 1);
 		_model = new MyModel(5, 6);
+		try {
+			_pl = new Player(_st, "Ehud", 1);
+		} catch (NullArgumentNotPermittedException e) {
+			fail("Can't instanciate player");
+		}
 
 	}
 	

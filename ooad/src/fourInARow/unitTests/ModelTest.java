@@ -16,25 +16,23 @@ public class ModelTest {
 	
 	private MyModel _model;
 	
-	private static PrintWriter testWriter;
+	private static PrintWriter _testWriter;
 	
 	
 	@Before
 	public void setUp(){
 		_model = new MyModel(5, 6);
 		try {
-			testWriter = new PrintWriter("testGame.log");
-			GameLogger.initLogStream(testWriter);
+			_testWriter = new PrintWriter("testGame.log");
+			GameLogger.initLogStream(_testWriter);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail("Can't instanciate logger");
 		}
 	}
 	
 	@After
 	public void tearDown(){
-		_model = new MyModel(5,6);
-		testWriter.close();
+		_testWriter.close();
 		
 	}
 	

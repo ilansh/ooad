@@ -1,6 +1,6 @@
 package fourInARow.aspects;
 
-import fourInARow.unitTests.*;
+import fourInARow.defaultImplementation.Driver;
 import java.io.PrintWriter;
 import java.util.Observable;
 
@@ -20,9 +20,9 @@ public aspect GameLogger { // TODO: optimize
 	// point cuts
 	pointcut startGame(): call(boolean mainMenu());
 
-	pointcut startTurn(): call(GameStatus playTurn());
+	pointcut startTurn(): call(GameStatus playTurn()) && within(Driver);
 
-	pointcut makeMove(int col, int playerNum): call(GameStatus addDisc(int, int)) && args(col, playerNum) && !within(ModelTest);
+	pointcut makeMove(int col, int playerNum): call(GameStatus addDisc(int, int)) && args(col, playerNum) && within(AController);
 
 	// TODO within doesnt work because aspect couldnt know when it'll be called
 	pointcut drawBoard(Observable model, Object board): call(void update(Observable, Object)) && args(model, board) && within(AController);
