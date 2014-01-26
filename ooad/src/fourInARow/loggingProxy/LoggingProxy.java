@@ -1,8 +1,6 @@
 package fourInARow.loggingProxy;
 
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -37,6 +35,9 @@ public class LoggingProxy implements InvocationHandler {
 	            	}
 	            	else {
 	            		_writer.print(args[i].getClass().getSimpleName());
+	            	}
+	            	if(i < args.length - 1) {
+	            		_writer.print(", ");
 	            	}
 	            }
 	            _writer.println(")");

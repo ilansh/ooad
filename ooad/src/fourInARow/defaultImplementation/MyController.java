@@ -3,10 +3,11 @@ package fourInARow.defaultImplementation;
 import java.util.Scanner;
 
 import fourInARow.controller.AController;
+import fourInARow.controller.IController;
 import fourInARow.excpetion.*;
 import fourInARow.model.*;
 
-public class MyController extends AController {
+public class MyController extends AController{
 
 	private static final int QUIT_KEY = 0;
 	private static final int VS_HUMAN_KEY = 1;
@@ -14,7 +15,7 @@ public class MyController extends AController {
 
 	private Scanner _terminalInput;
 
-	public MyController(MyModel model) {
+	public MyController(IModel model) throws NullArgumentNotPermittedException {
 		super(model);
 		_terminalInput = new Scanner(System.in);
 	}

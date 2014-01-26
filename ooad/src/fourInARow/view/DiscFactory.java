@@ -1,9 +1,6 @@
 package fourInARow.view;
 
 
-import java.util.HashMap;
-import java.awt.Point;
-
 import fourInARow.excpetion.InvalidPlayerNumException;
 
 /**

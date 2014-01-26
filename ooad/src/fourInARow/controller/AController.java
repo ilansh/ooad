@@ -1,6 +1,7 @@
 package fourInARow.controller;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 import fourInARow.controller.IController;
 import fourInARow.excpetion.*;
@@ -10,15 +11,18 @@ import fourInARow.view.*;
 
 public abstract class AController implements IController {
 
-	private MyModel _model;
+	private IModel _model;
 	private ArrayList<View> _views;
-	private Player _player1;
-	private Player _player2;
-	private Player _currentPlayer;
+	private IPlayer _player1;
+	private IPlayer _player2;
+	private IPlayer _currentPlayer;
 
 	protected GameStatus _gameStatus;
 
-	protected AController(MyModel model) {
+	protected AController(IModel model) throws NullArgumentNotPermittedException {
+		if(model == null ) {
+			throw new NullArgumentNotPermittedException();
+		}
 		_views = new ArrayList<View>();
 		_model = model;
 		_gameStatus = GameStatus.NOT_INIT;
@@ -62,7 +66,7 @@ public abstract class AController implements IController {
 		}
 		_currentPlayer = _player1;
 		for (int i = 0; i < _views.size(); i++) {
-			_views.get(i).update(_model, _model.getBoard());
+			_views.get(i).update(_model.getObservable(), _model.getBoard());
 		}
 		_gameStatus = GameStatus.ONGOING;
 	}
@@ -73,7 +77,7 @@ public abstract class AController implements IController {
 			throw new NullArgumentNotPermittedException();
 		}
 		_views.add(view);
-		_model.addObserver(view);
+		_model.getObservable().addObserver(view);
 
 	}
 
@@ -83,7 +87,7 @@ public abstract class AController implements IController {
 			throw new NullArgumentNotPermittedException();
 		}
 		_views.remove(view);
-		_model.deleteObserver(view);
+		_model.getObservable().deleteObserver(view);
 	}
 
 	@Override

@@ -7,7 +7,7 @@ import fourInARow.excpetion.NullArgumentNotPermittedException;
 /**
  * Variation on Abstract factory - we create disc factories dynamically
  * by getting two disc graphic implementations from the user and creating a
- * factory for them.
+ * flyweight factory for these implementations.
  * All users implementing the same graphic interface will get the same discFactory.
  *
  */

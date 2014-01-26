@@ -4,7 +4,7 @@ package fourInARow.model;
 import java.util.Observable;
 import fourInARow.excpetion.*;
 
-public class MyModel extends Observable implements IModel{ //TODO: handle GameModel who is not observable
+public class MyModel implements IModel{ //TODO: handle GameModel who is not observable
 
 	// CONSTANTS
 
@@ -16,7 +16,7 @@ public class MyModel extends Observable implements IModel{ //TODO: handle GameMo
 	private int _cols;
 	private int _rows;
 	private int _discsNum;
-//	private GameStatus _gameStatus;
+	DelegatedObservable obs;
 	
 	// PUBLIC METHODS
 	
@@ -25,8 +25,7 @@ public class MyModel extends Observable implements IModel{ //TODO: handle GameMo
 		_rows = rows;
 		_discsNum = 0;
 		_board = new int[rows][cols];
-//		_gameStatus = GameStatus.ONGOING;
-
+		obs = new DelegatedObservable();
 	}
 	
 	
@@ -39,6 +38,7 @@ public class MyModel extends Observable implements IModel{ //TODO: handle GameMo
 	 * @return
 	 * @throws ColumnFullException
 	 */
+	@Override
 	public GameStatus addDisc(int col, int playerNum) throws ColumnFullException , ColumnOutOfRangeException{ //TODO: exception heirarchy
 		isColOutOfRange(col);
 		
@@ -47,8 +47,8 @@ public class MyModel extends Observable implements IModel{ //TODO: handle GameMo
 		_discsNum++;
 		
 //		int cell[]= {row, col}; //TODO: send all the board or just the cell
-		setChanged();
-		notifyObservers(getBoard());
+		obs.setChanged();
+		obs.notifyObservers(getBoard());
 	
 		if (isWinner(_board, col, row, playerNum)){
 			return GameStatus.WIN; 
@@ -59,6 +59,7 @@ public class MyModel extends Observable implements IModel{ //TODO: handle GameMo
 		return GameStatus.ONGOING;
 	}
 	
+	@Override
 	public int [][] getBoard(){
 		int [][] copyBoard = new int[_rows][_cols];
 		for(int i=0; i<_rows; i++){
@@ -69,15 +70,17 @@ public class MyModel extends Observable implements IModel{ //TODO: handle GameMo
 		return copyBoard;
 	}
 	
-	
+	@Override
 	public int getNumRows() {
 		return _rows;
 	}
 	
+	@Override
 	public int getNumCols() {
 		return _cols;
 	}
 	
+	@Override
 	public boolean isWinner(int[][] board, int col, int row, int playerNum){
 		int count = 1;
 
@@ -166,6 +169,7 @@ public class MyModel extends Observable implements IModel{ //TODO: handle GameMo
 		return false;
 	}
 
+	@Override
 	public int firstEmptyRow(int col) throws ColumnFullException{
 		for (int i = _rows - 1; i >= 0; i--){
 			if (_board[i][col] == 0){
@@ -175,6 +179,7 @@ public class MyModel extends Observable implements IModel{ //TODO: handle GameMo
 		throw new ColumnFullException(); 
 	}
 	
+	@Override
 	public String toString() {
 		StringBuffer b = new StringBuffer();
 		for(int i = 0; i < _rows; i ++) {
@@ -199,6 +204,11 @@ public class MyModel extends Observable implements IModel{ //TODO: handle GameMo
 		return b.toString();
 	}
 	
+	@Override
+	public Observable getObservable() {
+		return obs;
+	}
+	
 	// PRIVATE METHODS
 	
 	private boolean isBoardFull(){
@@ -214,7 +224,6 @@ public class MyModel extends Observable implements IModel{ //TODO: handle GameMo
 			throw new ColumnOutOfRangeException();
 		}
 	}
-	
 	
 }
 

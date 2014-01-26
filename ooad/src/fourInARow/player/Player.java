@@ -1,6 +1,7 @@
 package fourInARow.player;
 
 import fourInARow.excpetion.NullArgumentNotPermittedException;
+import fourInARow.model.IModel;
 import fourInARow.model.MyModel;
 
 public class Player implements IPlayer {
@@ -59,7 +60,7 @@ public class Player implements IPlayer {
 	}
 
 	@Override
-	public int move(MyModel model) throws NullArgumentNotPermittedException {
+	public int move(IModel model) throws NullArgumentNotPermittedException {
 		if (model == null) {
 			throw new NullArgumentNotPermittedException();
 		}

@@ -1,10 +1,11 @@
 package fourInARow.player;
 
+import fourInARow.model.IModel;
 import fourInARow.model.MyModel;
 
 public interface PlayerStrategy {
 
-	public int makeMove(MyModel model);
+	public int makeMove(IModel model);
 	
 	public void printWinMessage(int playerNum);
 	

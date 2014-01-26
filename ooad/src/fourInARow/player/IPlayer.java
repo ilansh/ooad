@@ -1,5 +1,6 @@
 package fourInARow.player;
 import fourInARow.excpetion.NullArgumentNotPermittedException;
+import fourInARow.model.IModel;
 import fourInARow.model.MyModel;
 
 
@@ -17,6 +18,6 @@ public interface IPlayer {
 	
 	public void printMoveMessage();
 
-	public int move(MyModel model) throws NullArgumentNotPermittedException;
+	public int move(IModel model) throws NullArgumentNotPermittedException;
 	
 }

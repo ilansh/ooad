@@ -1,37 +1,24 @@
 package fourInARow.defaultImplementation;
 
-
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-
 import fourInARow.aspects.GameLogger;
 import fourInARow.controller.*;
-import fourInARow.excpetion.ColumnFullException;
-import fourInARow.excpetion.ColumnOutOfRangeException;
-import fourInARow.excpetion.NoViewsConfiguredException;
-import fourInARow.excpetion.NotEnoughPlayersException;
-import fourInARow.excpetion.NullArgumentNotPermittedException;
-import fourInARow.excpetion.TooManyPlayersEception;
+import fourInARow.excpetion.*;
 import fourInARow.view.*;
+import fourInARow.loggingProxy.LoggingProxy;
 import fourInARow.model.*;
-import fourInARow.loggingProxy.*;
-
 
 public class Driver {
-	
-	public static final String LOG_ENABLED = "--log";
-	
-	
-//	GameLogger gl;
-	
-	public static void runGame(IController controller, MyModel model, View view) throws NullArgumentNotPermittedException {
 
-		
-	
-		
+	public static final String LOG_ENABLED = "--log";
+
+	// GameLogger gl;
+
+	public static void runGame(IController controller, IModel model, View view)
+			throws NullArgumentNotPermittedException {
+
 		controller.addView(view);
-		
+
 		try {
 			controller.initGame();
 		} catch (TooManyPlayersEception e) {
@@ -47,43 +34,50 @@ public class Driver {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		GameStatus status = controller.getGameStatus();
-		
-		do{
+
+		do {
 			try {
 				status = controller.playTurn();
-			}
-			catch(ColumnFullException cfe) {
+			} catch (ColumnFullException cfe) {
 				System.out.println("Column is full");
-			}
-			catch(ColumnOutOfRangeException coore) {
+			} catch (ColumnOutOfRangeException coore) {
 				System.out.println("Column out of range");
-			}
-			catch(NumberFormatException nfe) { //makemove by human
+			} catch (NumberFormatException nfe) { // makemove by human
 				System.out.println("illegal column format");
 			}
-		} while(status != GameStatus.WIN && status != GameStatus.DRAW);
-	
+		} while (status != GameStatus.WIN && status != GameStatus.DRAW);
+
 		controller.printEndMessage();
-		
-		
+
 	}
-	
-	public static void main(String[] args) {
-		
-		//TODO: Do you want to log method calls (do through run arguments)
+
+	public static void main(String[] args) throws Exception{
+
+		// TODO: Do you want to log method calls (do through run arguments)
 		PrintWriter controllerLog = null;
 		PrintWriter modelLog = null;
 		PrintWriter gameLog = null;
 		
-		MyModel model = new MyModel(5, 6);
-		IController controller = new MyController(model);
+		controllerLog = new PrintWriter("contoller.log", "UTF-8");
+		modelLog = new PrintWriter("model.log", "UTF-8");
+		gameLog = new PrintWriter("game.log", "UTF-8");
 		
+
+		MyModel model = new MyModel(5, 6);
+		IModel loggedModel = (IModel)LoggingProxy.newInstance(model, modelLog);
+		IController controller = null;
+		try {
+			controller = new MyController(loggedModel);
+		} catch (NullArgumentNotPermittedException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+
 		DiscGraphic disc1 = new DiscGraphic('x');
 		DiscGraphic disc2 = new DiscGraphic('o');
-		
-		
+
 		AbstractDiscFactory adf = AbstractDiscFactory.newInsance();
 		DiscFactory df = null;
 		try {
@@ -92,48 +86,39 @@ public class Driver {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-//		DiscFactory df2 = adf.getFactory(disc2);
 		BoardGraphic board = new BoardGraphic(df);
-		
-		WindowGraphic window = new WindowGraphic(); //TODO" remove this
+
+		WindowGraphic window = new WindowGraphic(); // TODO" remove this
 		window.addGraphic(board);
-		
+
 		BorderBoard b = new BorderBoard();
-		
+
 		View view = new View(window);
-//		view.decorate(null, b, window);
-		
-//		controller.addView(new View(board));
-		
-//		if(args.length > 0 && args[0].equalsIgnoreCase(LOG_ENABLED)) {
-			try {
-				controllerLog = new PrintWriter("contoller.log", "UTF-8");
-				modelLog = new PrintWriter("model.log", "UTF-8");
-				gameLog = new PrintWriter("game.log", "UTF-8");
-//				GameLogger gl = GameLogger.aspectOf();
-//				gl.initLogger(gameLog);
-				GameLogger.initLogStream(gameLog);
-				//IController loggedController = (IController)LoggingProxy.newInstance(controller, controllerLog);
-				runGame(controller, model, view);
-				controllerLog.close();
-				modelLog.close();
-				gameLog.close();
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch(NullArgumentNotPermittedException nanpe){
-				System.out.println("Null arguments not permittes");//TODO exit?
-			}
-//		}
-//		else {
-//			runGame(controller, model);
-//		}
-		
+		view.decorate(null, b, window);
+
+		try {
+		// if(args.length > 0 && args[0].equalsIgnoreCase(LOG_ENABLED)) {
+
+			// GameLogger gl = GameLogger.aspectOf();
+			// gl.initLogger(gameLog);
+			GameLogger.initLogStream(gameLog);
+//			 IController loggedController =
+//					 			(IController)LoggingProxy.newInstance(controller, controllerLog);
+			
+			runGame(controller, loggedModel, view);
+			controllerLog.close();
+			modelLog.close();
+			gameLog.close();
+		} 
+		catch (NullArgumentNotPermittedException nanpe) {
+			System.out.println("Null arguments not permittes");// TODO exit?
+		}
+		// }
+		// else {
+		// runGame(controller, model);
+		// }
+
 		System.exit(0);
-		
-		
+
 	}
 }
