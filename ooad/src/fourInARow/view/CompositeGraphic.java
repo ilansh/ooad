@@ -1,6 +1,5 @@
 package fourInARow.view;
 
-import java.awt.Point;
 import java.util.ArrayList;
 
 public abstract class CompositeGraphic implements IGameGraphic {

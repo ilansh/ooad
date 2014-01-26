@@ -269,22 +269,5 @@ public class ControllerTest {
 		_testController.playTurn();
 		assertEquals("Game status should be ONGOING", GameStatus.ONGOING, _testController.getGameStatus());
 	}
-	
-	
-//	public GameStatus playTurn() throws ColumnFullException,
-//	ColumnOutOfRangeException, NumberFormatException,
-//	NullArgumentNotPermittedException, GameNotOngoingException {
-//		if (_gameStatus != GameStatus.ONGOING) {
-//			throw new GameNotOngoingException();
-//		}
-//		int col;
-//		_currentPlayer.printMoveMessage();
-//		col = _currentPlayer.move(_model);
-//		_gameStatus = _model.addDisc(col, _currentPlayer.getPlayerNum());
-//		if(_gameStatus != GameStatus.WIN) {
-//			switchTurn();
-//		}
-//		return _gameStatus;
-//		}
 
 }

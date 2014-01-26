@@ -2,7 +2,6 @@ package fourInARow.player;
 
 import fourInARow.excpetion.NullArgumentNotPermittedException;
 import fourInARow.model.IModel;
-import fourInARow.model.MyModel;
 
 public class Player implements IPlayer {
 

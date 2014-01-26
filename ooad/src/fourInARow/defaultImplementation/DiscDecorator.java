@@ -5,7 +5,7 @@ import fourInARow.view.IGameGraphic;
 
 
 
-public class DecoratedDisc extends CompositeGraphic {
+public class DiscDecorator extends CompositeGraphic {
 
 	@Override
 	public void drawGraphic(int[][] board) {
@@ -15,7 +15,7 @@ public class DecoratedDisc extends CompositeGraphic {
 
 	@Override
 	public IGameGraphic clone() {
-		return new DecoratedDisc();
+		return new DiscDecorator();
 	}
 
 //	@Override

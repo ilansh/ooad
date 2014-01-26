@@ -3,9 +3,9 @@ package fourInARow.view;
 import java.util.Observable;
 import java.util.Observer;
 
-public class View implements Observer{ //TODO: maybe singleton
+public class View implements Observer{
 
-	private CompositeGraphic _gameView;
+	protected CompositeGraphic _gameView;
 	
 	
 	
@@ -17,7 +17,7 @@ public class View implements Observer{ //TODO: maybe singleton
 	@Override
 	public void update(Observable o, Object arg) {
 	
-		_gameView.drawGraphic((int[][])arg); //TODO: is it ok???!???!??
+		_gameView.drawGraphic((int[][])arg);
 	}
 	
 	/**

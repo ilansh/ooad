@@ -144,8 +144,8 @@ public class MyController extends AController{
 			_views.get(0).decorate(null, b, _boards.get(0));
 		}
 		else if (choice == DECORATE_DISC_KEY) {
-			CompositeGraphic d1 = new DecoratedDisc();
-			CompositeGraphic d2 = new DecoratedDisc();
+			CompositeGraphic d1 = new DiscDecorator();
+			CompositeGraphic d2 = new DiscDecorator();
 			_views.get(0).decorate(_boards.get(0), d1, _1discs.get(0));
 			_views.get(0).decorate(_boards.get(0), d2, _2discs.get(0));
 		}

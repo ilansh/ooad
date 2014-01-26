@@ -1,7 +1,6 @@
 package fourInARow.player;
 
 import fourInARow.model.IModel;
-import fourInARow.model.MyModel;
 
 public interface PlayerStrategy {
 
