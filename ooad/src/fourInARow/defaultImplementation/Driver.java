@@ -14,10 +14,8 @@ public class Driver {
 
 	// GameLogger gl;
 
-	public static void runGame(IController controller, IModel model, View view)
+	public static void runGame(IController controller, IModel model)
 			throws NullArgumentNotPermittedException {
-
-		controller.addView(view);
 
 		try {
 			controller.initGame();
@@ -75,26 +73,7 @@ public class Driver {
 			e2.printStackTrace();
 		}
 
-		DiscGraphic disc1 = new DiscGraphic('x');
-		DiscGraphic disc2 = new DiscGraphic('o');
-
-		AbstractDiscFactory adf = AbstractDiscFactory.newInsance();
-		DiscFactory df = null;
-		try {
-			df = adf.getFactoryImpl(disc1, disc2);
-		} catch (NullArgumentNotPermittedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		BoardGraphic board = new BoardGraphic(df);
-
-		WindowGraphic window = new WindowGraphic(); // TODO" remove this
-		window.addGraphic(board);
-
-		BorderBoard b = new BorderBoard();
-
-		View view = new View(window);
-		view.decorate(null, b, window);
+		
 
 		try {
 		// if(args.length > 0 && args[0].equalsIgnoreCase(LOG_ENABLED)) {
@@ -105,7 +84,7 @@ public class Driver {
 //			 IController loggedController =
 //					 			(IController)LoggingProxy.newInstance(controller, controllerLog);
 			
-			runGame(controller, loggedModel, view);
+			runGame(controller, loggedModel);
 			controllerLog.close();
 			modelLog.close();
 			gameLog.close();

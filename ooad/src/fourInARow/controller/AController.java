@@ -1,8 +1,6 @@
 package fourInARow.controller;
 
 import java.util.ArrayList;
-import java.util.Observable;
-
 import fourInARow.controller.IController;
 import fourInARow.excpetion.*;
 import fourInARow.model.*;
@@ -11,11 +9,11 @@ import fourInARow.view.*;
 
 public abstract class AController implements IController {
 
-	private IModel _model;
-	private ArrayList<View> _views;
-	private IPlayer _player1;
-	private IPlayer _player2;
-	private IPlayer _currentPlayer;
+	protected IModel _model;
+	protected ArrayList<View> _views;
+	protected IPlayer _player1;
+	protected IPlayer _player2;
+	protected IPlayer _currentPlayer;
 
 	protected GameStatus _gameStatus;
 
@@ -36,7 +34,7 @@ public abstract class AController implements IController {
 		}
 	}
 
-	protected abstract void mainMenu() throws Exception;
+	protected abstract boolean mainMenu() throws Exception;
 
 	@Override
 	public GameStatus playTurn() throws ColumnFullException,
@@ -49,7 +47,9 @@ public abstract class AController implements IController {
 		_currentPlayer.printMoveMessage();
 		col = _currentPlayer.move(_model);
 		_gameStatus = _model.addDisc(col, _currentPlayer.getPlayerNum());
-		switchTurn();
+		if(_gameStatus != GameStatus.WIN) {
+			switchTurn();
+		}
 		return _gameStatus;
 	}
 
@@ -60,7 +60,10 @@ public abstract class AController implements IController {
 		if (_views.isEmpty()) {
 			throw new NoViewsConfiguredException();
 		}
-		mainMenu();
+		boolean toStart = mainMenu();
+		while(!toStart) {
+			toStart = mainMenu();
+		}
 		if (_player1 == null || _player2 == null) {
 			throw new NotEnoughPlayersException();
 		}
