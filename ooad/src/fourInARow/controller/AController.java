@@ -1,7 +1,6 @@
 package fourInARow.controller;
 
 import java.util.ArrayList;
-import fourInARow.controller.IController;
 import fourInARow.excpetion.*;
 import fourInARow.model.*;
 import fourInARow.player.*;

@@ -59,7 +59,18 @@ public class PlayerTest {
 		Player player = _pl;
 		assertEquals("Player's name should be Ehud", "Ehud", player.getName());
 		player.setName(null);
-		assertEquals("Player's name should be Ilan", "Ilan", player.getName());
+	}
+	
+	@Test 
+	public void testSetStrategyValid() throws NullArgumentNotPermittedException {
+		Player player = _pl;
+		player.setStrategy(new HumanStrategy());
+	}
+	
+	@Test (expected = NullArgumentNotPermittedException.class)
+	public void testSetStrategyNull() throws NullArgumentNotPermittedException {
+		Player player = _pl;
+		player.setStrategy(null);
 	}
 	
 	//test player move function
@@ -77,6 +88,20 @@ public class PlayerTest {
 	public void testPlayerMoveNullModel() throws NullArgumentNotPermittedException {
 		Player player = _pl;
 		player.move(null);
+	}
+	
+	@Test
+	public void testPlayerPrintWinMessage() throws NullArgumentNotPermittedException {
+		Player player = _pl;
+		player.setStrategy(new HumanStrategy());
+		player.printWinMessage();
+	}
+	
+	@Test 
+	public void testPlayerPrintMoveMessage() throws NullArgumentNotPermittedException {
+		Player player = _pl;
+		player.setStrategy(new HumanStrategy());
+		player.printMoveMessage();
 	}
 
 }

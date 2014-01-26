@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.Observable;
 
 import org.junit.*;
 
@@ -32,7 +33,7 @@ public class ModelTest {
 	
 	@After
 	public void tearDown(){
-		//run after each test
+		_model = new MyModel(5,6);
 		testWriter.close();
 		
 	}
@@ -141,6 +142,265 @@ public class ModelTest {
 		MyModel model = new MyModel(4, 1);
 		model.addDisc(Integer.MAX_VALUE, 1);
 	}
+	
+	@Test
+	public void testIsWinnerHorizontal0() throws ColumnFullException, ColumnOutOfRangeException{
+		MyModel model = _model;
+		model.addDisc(0, 1);
+		model.addDisc(1, 1);
+		model.addDisc(2, 1);
+		assertTrue("isWinner should be true", model.isWinner(model.getBoard(), 3, 5, 1));
+	}
+	
+	@Test
+	public void testIsWinnerHorizontal1() throws ColumnFullException, ColumnOutOfRangeException{
+		MyModel model = _model;
+		model.addDisc(0, 1);
+		model.addDisc(2, 1);
+		model.addDisc(3, 1);
+		assertTrue("isWinner should be true", model.isWinner(model.getBoard(), 1, 5, 1));
+	}
+	
+	@Test
+	public void testIsWinnerHorizontal2() throws ColumnFullException, ColumnOutOfRangeException{
+		MyModel model = _model;
+		model.addDisc(0, 1);
+		model.addDisc(1, 1);
+		model.addDisc(3, 1);
+		assertTrue("isWinner should be true", model.isWinner(model.getBoard(), 2, 5, 1));
+	}
+	
+	@Test
+	public void testIsWinnerHorizontal3() throws ColumnFullException, ColumnOutOfRangeException{
+		MyModel model = _model;
+		model.addDisc(3, 1);
+		model.addDisc(1, 1);
+		model.addDisc(2, 1);
+		assertTrue("isWinner should be true", model.isWinner(model.getBoard(), 0, 5, 1));
+	}
+	
+	@Test
+	public void testIsWinnerVertical0() throws ColumnFullException, ColumnOutOfRangeException{
+		MyModel model = _model;
+		model.addDisc(0, 1);
+		model.addDisc(0, 1);
+		model.addDisc(0, 1);
+		assertTrue("isWinner should be true", model.isWinner(model.getBoard(), 0, 2, 1));
+	}
+	
+	@Test
+	public void testIsWinnerVertical1() throws ColumnFullException, ColumnOutOfRangeException{
+		MyModel model = _model;
+		model.addDisc(0, 1);
+		model.addDisc(0, 2);
+		model.addDisc(0, 1);
+		model.addDisc(0, 1);
+		assertTrue("isWinner should be true", model.isWinner(model.getBoard(), 0, 4, 1));
+	}
+	
+	@Test
+	public void testIsWinnerVertical2() throws ColumnFullException, ColumnOutOfRangeException{
+		MyModel model = _model;
+		model.addDisc(0, 1);
+		model.addDisc(0, 1);
+		model.addDisc(0, 2);
+		model.addDisc(0, 1);
+		assertTrue("isWinner should be true", model.isWinner(model.getBoard(), 0, 3, 1));
+	}
+	
+	@Test
+	public void testIsWinnerVertical3() throws ColumnFullException, ColumnOutOfRangeException{
+		MyModel model = _model;
+		model.addDisc(0, 2);
+		model.addDisc(0, 1);
+		model.addDisc(0, 1);
+		model.addDisc(0, 1);
+		assertTrue("isWinner should be true", model.isWinner(model.getBoard(), 0, 5, 1));
+	}
+	
+	/*
+	 *       
+	 *     x o
+	 *   x o o
+	 * x o o o 
+	 */
+	@Test
+	public void testIsWinnerDiagRight0() throws ColumnFullException, ColumnOutOfRangeException{
+		MyModel model = _model;
+		model.addDisc(1, 2);
+		model.addDisc(2, 2);
+		model.addDisc(3, 2);
+		model.addDisc(2, 2);
+		model.addDisc(3, 2);
+		model.addDisc(3, 2);
+		model.addDisc(1, 1); //row
+		model.addDisc(2, 1); //row
+		model.addDisc(0, 1); //row
+		assertTrue("isWinner should be true", model.isWinner(model.getBoard(), 3, 2, 1));
+	}
+	
+	/*
+	 *       x
+	 *       o
+	 *   x o o
+	 * x o o o 
+	 */
+	@Test
+	public void testIsWinnerDiagRight1() throws ColumnFullException, ColumnOutOfRangeException{
+		MyModel model = _model;
+		model.addDisc(1, 2);
+		model.addDisc(2, 2);
+		model.addDisc(3, 2);
+		model.addDisc(2, 2);
+		model.addDisc(3, 2);
+		model.addDisc(3, 2);
+		model.addDisc(1, 1);
+		model.addDisc(0, 1);
+		model.addDisc(3, 1);
+		assertTrue("isWinner should be true", model.isWinner(model.getBoard(), 2, 3, 1));
+	}
+	
+	/*
+	 *       x
+	 *     x o
+	 *     o o
+	 * x o o o 
+	 */
+	@Test
+	public void testIsWinnerDiagRight2() throws ColumnFullException, ColumnOutOfRangeException{
+		MyModel model = _model;
+		model.addDisc(1, 2);
+		model.addDisc(2, 2);
+		model.addDisc(3, 2);
+		model.addDisc(2, 2);
+		model.addDisc(3, 2);
+		model.addDisc(3, 2);
+		model.addDisc(0, 1);
+		model.addDisc(2, 1);
+		model.addDisc(3, 1);
+		assertTrue("isWinner should be true", model.isWinner(model.getBoard(), 1, 4, 1));
+	}
+	
+	/*
+	 *       x
+	 *     x o
+	 *   x o o
+	 *   o o o 
+	 */
+	@Test
+	public void testIsWinnerDiagRight3() throws ColumnFullException, ColumnOutOfRangeException{
+		MyModel model = _model;
+		model.addDisc(1, 2);
+		model.addDisc(2, 2);
+		model.addDisc(3, 2);
+		model.addDisc(1, 1);
+		model.addDisc(2, 2);
+		model.addDisc(3, 2);
+		model.addDisc(2, 1);
+		model.addDisc(3, 2);
+		model.addDisc(3, 1);
+		assertTrue("isWinner should be true", model.isWinner(model.getBoard(), 0, 5, 1));
+	}
+	
+	/*
+	 *  
+	 *  o x 
+	 *  o o x
+	 *  o o o x 
+	 */
+	@Test
+	public void testIsWinnerDiagLeft0() throws ColumnFullException, ColumnOutOfRangeException{
+		MyModel model = _model;
+		model.addDisc(0, 2);
+		model.addDisc(1, 2);
+		model.addDisc(2, 2);
+		model.addDisc(0, 2);
+		model.addDisc(1, 2);
+		model.addDisc(0, 2);
+		model.addDisc(3, 1);
+		model.addDisc(2, 1);
+		model.addDisc(1, 1);
+		assertTrue("isWinner should be true", model.isWinner(model.getBoard(), 0, 2, 1));
+	}
+	
+	/*
+	 *  x
+	 *  o  
+	 *  o o x
+	 *  o o o x 
+	 */
+	@Test
+	public void testIsWinnerDiagLeft1() throws ColumnFullException, ColumnOutOfRangeException{
+		MyModel model = _model;
+		model.addDisc(0, 2);
+		model.addDisc(1, 2);
+		model.addDisc(2, 2);
+		model.addDisc(0, 2);
+		model.addDisc(1, 2);
+		model.addDisc(0, 2);
+		model.addDisc(3, 1);
+		model.addDisc(2, 1);
+		model.addDisc(0, 1);
+		assertTrue("isWinner should be true", model.isWinner(model.getBoard(), 1, 3, 1));
+	}
+	
+	/*
+	 *  x
+	 *  o x 
+	 *  o o 
+	 *  o o o x 
+	 */
+	@Test
+	public void testIsWinnerDiagLeft2() throws ColumnFullException, ColumnOutOfRangeException{
+		MyModel model = _model;
+		model.addDisc(0, 2);
+		model.addDisc(1, 2);
+		model.addDisc(2, 2);
+		model.addDisc(0, 2);
+		model.addDisc(1, 2);
+		model.addDisc(0, 2);
+		model.addDisc(3, 1);
+		model.addDisc(1, 1);
+		model.addDisc(0, 1);
+		assertTrue("isWinner should be true", model.isWinner(model.getBoard(), 2, 4, 1));
+	}
+	
+	/*
+	 *  x
+	 *  o x 
+	 *  o o x
+	 *  o o o  
+	 */
+	@Test
+	public void testIsWinnerDiagLeft3() throws ColumnFullException, ColumnOutOfRangeException{
+		MyModel model = _model;
+		model.addDisc(0, 2);
+		model.addDisc(1, 2);
+		model.addDisc(2, 2);
+		model.addDisc(0, 2);
+		model.addDisc(1, 2);
+		model.addDisc(0, 2);
+		model.addDisc(2, 1);
+		model.addDisc(1, 1);
+		model.addDisc(0, 1);
+		assertTrue("isWinner should be true", model.isWinner(model.getBoard(), 3, 5, 1));
+	}
+	
+	@Test
+	public void testGetObservable(){
+		MyModel model = _model;
+		assertTrue("isWinner should be true", model.getObservable() instanceof Observable);
+	}
+	
+	@Test
+	public void testToString() throws ColumnFullException, ColumnOutOfRangeException{
+		MyModel model = _model;
+		model.addDisc(0, 2);
+		model.addDisc(1, 1);
+		String s = model.toString();
+		assertTrue("isWinner should be true",  s.matches("(.|\n)*o(.|\n)*x(.|\n)*"));
+	}
+	
 	
 
 }
