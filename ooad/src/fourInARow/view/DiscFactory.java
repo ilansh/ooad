@@ -18,7 +18,12 @@ public class DiscFactory {
 		_disc2 = disc2;
 	}
 	
-	
+	/**
+	 * Get a disc from the factory
+	 * @param playerNum 1 or 2
+	 * @return Disc graphic object
+	 * @throws InvalidPlayerNumException
+	 */
 	public IGameGraphic getDisc(int playerNum) throws InvalidPlayerNumException {
 		IGameGraphic retDisc = null; 
 		if(playerNum == 1) { 

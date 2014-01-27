@@ -15,12 +15,17 @@ public class AbstractDiscFactory {
 	
 	private HashMap <IGameGraphic, DiscFactory> _factoriesPool;
 	
+	//The singleton instance
 	private static AbstractDiscFactory _instance = null;
 	
 	private AbstractDiscFactory() {
 		_factoriesPool = new HashMap <IGameGraphic, DiscFactory>();
 	}
 	
+	/**
+	 * Get the singleton instance of the abstract factory
+	 * @return This object's instance
+	 */
 	public static AbstractDiscFactory newInsance() {
 		if(_instance == null ) {
 			_instance =  new AbstractDiscFactory();
@@ -28,6 +33,14 @@ public class AbstractDiscFactory {
 		return _instance;
 	}
 	
+	/**
+	 * Get a factory implementation for the given Graphics.
+	 * The arguments should implement hashCode and equals correctly, as well as clone.
+	 * @param disc1 - the disc1 graphic
+	 * @param disc2 = the disc2 graphic
+	 * @return A factory implementation containing disc1 and disc2
+	 * @throws NullArgumentNotPermittedException
+	 */
 	public DiscFactory getFactoryImpl(IGameGraphic disc1, IGameGraphic disc2) throws NullArgumentNotPermittedException {
 		if(disc1 == null || disc2 == null) {
 			throw new NullArgumentNotPermittedException();

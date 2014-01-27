@@ -14,6 +14,9 @@ public class View implements Observer{
 	}
 	
 	
+	/**
+	 * Draw all the graphics in this view, starting from the root _gameView.
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 	
@@ -21,7 +24,7 @@ public class View implements Observer{
 	}
 	
 	/**
-	 * 
+	 * Decorate
 	 * @param father - if decorating root, father should be null, otherwise, will add the decorator and remove decoratee from children
 	 * @param decorator - The decorator object, wrapping the decorated object 
 	 * @param decoratee - The decorated object, wrapped by the decorator

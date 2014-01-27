@@ -15,11 +15,19 @@ public abstract class CompositeGraphic implements IGameGraphic {
 
 	}
 	
+	/**
+	 * add the given graphic to this Composite
+	 * @param graphic
+	 */
 	public void addGraphic(IGameGraphic graphic) {
 		_graphics.add(graphic);
 
 	}
 	
+	/**
+	 * remove the given graphic from this Composite
+	 * @param graphic
+	 */
 	public void removeGraphic(IGameGraphic graphic) {
 		_graphics.remove(graphic);
 

@@ -106,10 +106,6 @@ public class MyController extends AController{
 	@Override
 	protected boolean mainMenu() throws NullArgumentNotPermittedException,
 			TooManyPlayersException {
-//		if (_gameStatus != GameStatus.NOT_INIT) { // game is inited only after
-//													// first move
-//			// TODO: Throw exception
-//		}
 		boolean ret = false;
 		int choice = QUIT_KEY;
 		System.out.println("Welcome to Four in a Line!");
