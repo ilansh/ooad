@@ -2,12 +2,11 @@ package fourInARow.aspects;
 
 import fourInARow.defaultImplementation.Driver;
 import java.io.PrintWriter;
-import java.util.Observable;
-
+import java.lang.NumberFormatException;
 import fourInARow.model.*;
 import fourInARow.controller.*;
 
-public aspect GameLogger { // TODO: optimize
+public aspect GameLogger {
 
 	private static PrintWriter _logStream = null;
 
@@ -18,18 +17,15 @@ public aspect GameLogger { // TODO: optimize
 	}
 
 	// point cuts
-	pointcut startGame(): call(boolean mainMenu());
+	pointcut startGame(): call(void initGame());
 
 	pointcut startTurn(): call(GameStatus playTurn()) && within(Driver);
 
 	pointcut makeMove(int col, int playerNum): call(GameStatus addDisc(int, int)) && args(col, playerNum) && within(AController);
 
-	// TODO within doesnt work because aspect couldnt know when it'll be called
-	pointcut drawBoard(Observable model, Object board): call(void update(Observable, Object)) && args(model, board) && within(AController);
-
 	pointcut drawTurnBoard(Object board): call(void notifyObservers(Object)) && args(board) && within(MyModel);
 
-	before(): startGame(){
+	after(): startGame(){
 		_logStream.println("Welcome to Four in a Line!");
 	}
 
@@ -58,16 +54,13 @@ public aspect GameLogger { // TODO: optimize
 				+ col + ", restarting turn timer.");
 	}
 
-	after() throwing: startTurn() {
-		_logStream
-				.println("invalid column choice, a numerical entry is required, restarting turn timer.");
+	after() throwing (NumberFormatException nfe): startTurn() {
+			_logStream
+					.println("invalid column choice, a numerical entry is required, restarting turn timer.");
 	}
 
-	after(Observable model, Object board): drawBoard(model, board){ // add within
-		_logStream.println(model.toString());
-	}
 
-	after(Object board): drawTurnBoard(board){ // add within
+	after(Object board): drawTurnBoard(board){
 		int[][] b = (int[][]) board;
 
 		StringBuffer sb = new StringBuffer();
