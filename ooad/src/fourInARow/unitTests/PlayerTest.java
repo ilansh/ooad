@@ -117,7 +117,6 @@ public class PlayerTest {
 		MyModel model = _model;
 		int col = player.move(model);
 		assertTrue("Column must be in range 0 - " + (model.getNumCols()-1) , 0 <= col && col < model.getNumCols());
-		//TODO maybe it is better to only check here if the returend column is integer and in the addDisc method check the range
 	}
 	
 	@Test (expected = NullArgumentNotPermittedException.class)

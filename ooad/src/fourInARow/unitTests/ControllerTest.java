@@ -16,9 +16,7 @@ import fourInARow.excpetion.*;
 import fourInARow.model.GameStatus;
 import fourInARow.model.IModel;
 import fourInARow.model.MyModel;
-import fourInARow.player.IPlayer;
 import fourInARow.player.Player;
-import fourInARow.view.AbstractDiscFactory;
 import fourInARow.view.CompositeGraphic;
 import fourInARow.view.DiscFactory;
 import fourInARow.view.IGameGraphic;
@@ -31,12 +29,12 @@ public class ControllerTest {
 	private View _view;
 	private IModel _model;
 	private static PrintWriter _testWriter;
-	private IPlayer _p1;
-	private IPlayer _p2;
+	private Player _p1;
+	private Player _p2;
 
 	class TestController extends AController {
 
-		protected TestController(IModel model, IPlayer p1, IPlayer p2)
+		protected TestController(IModel model, Player p1, Player p2)
 				throws NullArgumentNotPermittedException {
 			super(model);
 			_player1 = new Player(new SimpleComputerStrategy(), "udi", 1);
@@ -54,11 +52,11 @@ public class ControllerTest {
 			_gameStatus = status;
 		}
 
-		protected IPlayer getPlayer1() {
+		protected Player getPlayer1() {
 			return _player1;
 		}
 
-		protected IPlayer getPlayer2() {
+		protected Player getPlayer2() {
 			return _player2;
 		}
 

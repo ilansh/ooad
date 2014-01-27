@@ -3,7 +3,7 @@ package fourInARow.player;
 import fourInARow.excpetion.NullArgumentNotPermittedException;
 import fourInARow.model.IModel;
 
-public class Player implements IPlayer {
+public class Player {
 
 	protected PlayerStrategy _strategy;
 
@@ -18,7 +18,6 @@ public class Player implements IPlayer {
 		setName(name);
 	}
 
-	@Override
 	public void setName(String name) throws NullArgumentNotPermittedException {
 		if (name == null) {
 			throw new NullArgumentNotPermittedException();
@@ -27,12 +26,10 @@ public class Player implements IPlayer {
 
 	}
 
-	@Override
 	public String getName() {
 		return _name;
 	}
 
-	@Override
 	public void setStrategy(PlayerStrategy strategy)
 			throws NullArgumentNotPermittedException {
 		if (strategy == null) {
@@ -42,23 +39,19 @@ public class Player implements IPlayer {
 
 	}
 
-	@Override
 	public int getPlayerNum() {
 		return _playerNum;
 	}
 
-	@Override
 	public void printWinMessage() {
 		_strategy.printWinMessage(_playerNum);
 	}
 
-	@Override
 	public void printMoveMessage() {
 		_strategy.printMoveMessage(_playerNum);
 
 	}
 
-	@Override
 	public int move(IModel model) throws NullArgumentNotPermittedException {
 		if (model == null) {
 			throw new NullArgumentNotPermittedException();

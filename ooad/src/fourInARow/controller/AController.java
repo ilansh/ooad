@@ -10,9 +10,9 @@ public abstract class AController {
 
 	protected IModel _model;
 	protected ArrayList<View> _views;
-	protected IPlayer _player1;
-	protected IPlayer _player2;
-	protected IPlayer _currentPlayer;
+	protected Player _player1;
+	protected Player _player2;
+	protected Player _currentPlayer;
 
 	protected GameStatus _gameStatus;
 
