@@ -5,11 +5,11 @@ import fourInARow.model.IModel;
 
 public class Player implements IPlayer {
 
-	PlayerStrategy _strategy;
+	protected PlayerStrategy _strategy;
 
-	String _name;
+	protected String _name;
 
-	int _playerNum;
+	protected int _playerNum;
 
 	public Player(PlayerStrategy strategy, String name, int playerNum)
 			throws NullArgumentNotPermittedException {

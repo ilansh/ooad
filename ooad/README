@@ -49,14 +49,11 @@ We mainly used exceptions so our library will be relatively foolproof, but only 
 Logging
 --------
 As stated above, our dynamic proxy is set on the model and outputs to a file called model.log.
-
-Aspects
---------
-?????
+We also used aspectJ as required to log the game progress and turn times.
 
 Unit tests
 -----------
-?????
+Our unit tests
 
  
 

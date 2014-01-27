@@ -78,14 +78,8 @@ public class ControllerTest {
 		IGameGraphic disc1 = new DiscGraphic('x');
 		IGameGraphic disc2 = new DiscGraphic('o');
 
-		AbstractDiscFactory adf = AbstractDiscFactory.newInsance();
-		DiscFactory df = null;
-		try {
-			df = adf.getFactoryImpl(disc1, disc2);
-		} catch (NullArgumentNotPermittedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		DiscFactory df = new DiscFactory(disc1, disc2);
+
 		CompositeGraphic board = new BoardGraphic(df);
 
 		_view = new View(board);

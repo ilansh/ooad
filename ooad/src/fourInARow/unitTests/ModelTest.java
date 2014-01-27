@@ -384,6 +384,31 @@ public class ModelTest {
 		assertTrue("isWinner should be true", model.isWinner(model.getBoard(), 3, 5, 1));
 	}
 	
+	/*    x
+	 *    o x
+	 *    o o 
+	 *    o o o x
+	 *    o o o o 
+	 */
+	@Test
+	public void testIsWinnerDiagLeft4() throws ColumnFullException, ColumnOutOfRangeException{
+		IModel model = _model;
+		model.addDisc(1, 2);
+		model.addDisc(1, 2);
+		model.addDisc(1, 2);
+		model.addDisc(1, 2);
+		model.addDisc(2, 2);
+		model.addDisc(2, 2);
+		model.addDisc(2, 2);
+		model.addDisc(3, 2);
+		model.addDisc(3, 2);
+		model.addDisc(4, 2);
+		model.addDisc(1, 1);
+		model.addDisc(2, 1);
+		model.addDisc(4, 1);
+		assertTrue("isWinner should be true", model.isWinner(model.getBoard(), 3, 3, 1));
+	}
+	
 	@Test
 	public void testGetObservable(){
 		IModel model = _model;
