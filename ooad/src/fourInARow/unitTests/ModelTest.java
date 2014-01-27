@@ -14,7 +14,7 @@ import fourInARow.model.*;
 
 public class ModelTest {
 	
-	private MyModel _model;
+	private IModel _model;
 	
 	private static PrintWriter _testWriter;
 	
@@ -39,19 +39,19 @@ public class ModelTest {
 	//test getters
 	@Test
 	public void testGetCols() throws NullArgumentNotPermittedException {
-		MyModel model = _model;
+		IModel model = _model;
 		assertEquals("Number of board columns should be 5", 5, model.getNumCols());
 	}
 	
 	@Test
 	public void testGetRows() {
-		MyModel model = _model;
+		IModel model = _model;
 		assertEquals("Number of board columns should be 6", 6, model.getNumRows());
 	}
 	
 	@Test
 	public void testGetBoard(){
-		MyModel model = _model;
+		IModel model = _model;
 		int[][] board1 = model.getBoard();
 		assertEquals("Number of board rows should be 6", 6, board1.length);
 		assertEquals("Number of board columns should be 5", 5, board1[0].length);
@@ -61,13 +61,13 @@ public class ModelTest {
 
 	@Test
 	public void testFirstEmptyRowFirstRow() throws ColumnFullException{
-		MyModel model = _model;
+		IModel model = _model;
 		assertEquals("First empty row must be 5", 5, model.firstEmptyRow(0));
 	}
 	
 	@Test
 	public void testFirstEmptyRowLastRow() throws ColumnFullException, ColumnOutOfRangeException{
-		MyModel model = _model;
+		IModel model = _model;
 		_model.addDisc(0, 1);
 		_model.addDisc(0, 1);
 		_model.addDisc(0, 1);
@@ -78,7 +78,7 @@ public class ModelTest {
 	
 	@Test
 	public void testFirstEmptyRowMidRow() throws ColumnFullException, ColumnOutOfRangeException{
-		MyModel model = _model;
+		IModel model = _model;
 		_model.addDisc(0, 1);
 		_model.addDisc(0, 1);
 		assertEquals("First empty row must be 3", 3, model.firstEmptyRow(0));
@@ -86,14 +86,14 @@ public class ModelTest {
 	
 	@Test (expected = ColumnFullException.class)
 	public void testFirstEmptyRowColumnFull() throws ColumnFullException, ColumnOutOfRangeException{
-		MyModel model = new MyModel(8, 1);
+		IModel model = new MyModel(8, 1);
 		model.addDisc(0, 1);
 		model.firstEmptyRow(0);
 	}
 	
 	@Test 
 	public void testAddDiscWinner() throws ColumnFullException, ColumnOutOfRangeException{
-		MyModel model = new MyModel(4, 1);
+		IModel model = new MyModel(4, 1);
 		GameStatus status; 
 		model.addDisc(0, 1);
 		model.addDisc(1, 1);
@@ -104,7 +104,7 @@ public class ModelTest {
 	
 	@Test 
 	public void testAddDiscOngoing() throws ColumnFullException, ColumnOutOfRangeException{
-		MyModel model = new MyModel(4, 1);
+		IModel model = new MyModel(4, 1);
 		GameStatus status; 
 		model.addDisc(0, 1);
 		model.addDisc(1, 1);
@@ -114,7 +114,7 @@ public class ModelTest {
 	
 	@Test 
 	public void testAddDiscDraw() throws ColumnFullException, ColumnOutOfRangeException{
-		MyModel model = new MyModel(4, 1);
+		IModel model = new MyModel(4, 1);
 		GameStatus status; 
 		model.addDisc(0, 1);
 		model.addDisc(1, 1);
@@ -125,25 +125,25 @@ public class ModelTest {
 	
 	@Test (expected = ColumnOutOfRangeException.class)
 	public void testAddDiscOutOfRangePos() throws ColumnFullException, ColumnOutOfRangeException{
-		MyModel model = new MyModel(4, 1);
+		IModel model = new MyModel(4, 1);
 		model.addDisc(4, 1);
 	}
 	
 	@Test (expected = ColumnOutOfRangeException.class)
 	public void testAddDiscOutOfRangeNeg() throws ColumnFullException, ColumnOutOfRangeException{
-		MyModel model = new MyModel(4, 1);
+		IModel model = new MyModel(4, 1);
 		model.addDisc(-1, 1);
 	}
 	
 	@Test (expected = ColumnOutOfRangeException.class)
 	public void testAddDiscOutOfRangeIntMax() throws ColumnFullException, ColumnOutOfRangeException{
-		MyModel model = new MyModel(4, 1);
+		IModel model = new MyModel(4, 1);
 		model.addDisc(Integer.MAX_VALUE, 1);
 	}
 	
 	@Test
 	public void testIsWinnerHorizontal0() throws ColumnFullException, ColumnOutOfRangeException{
-		MyModel model = _model;
+		IModel model = _model;
 		model.addDisc(0, 1);
 		model.addDisc(1, 1);
 		model.addDisc(2, 1);
@@ -152,7 +152,7 @@ public class ModelTest {
 	
 	@Test
 	public void testIsWinnerHorizontal1() throws ColumnFullException, ColumnOutOfRangeException{
-		MyModel model = _model;
+		IModel model = _model;
 		model.addDisc(0, 1);
 		model.addDisc(2, 1);
 		model.addDisc(3, 1);
@@ -161,7 +161,7 @@ public class ModelTest {
 	
 	@Test
 	public void testIsWinnerHorizontal2() throws ColumnFullException, ColumnOutOfRangeException{
-		MyModel model = _model;
+		IModel model = _model;
 		model.addDisc(0, 1);
 		model.addDisc(1, 1);
 		model.addDisc(3, 1);
@@ -170,7 +170,7 @@ public class ModelTest {
 	
 	@Test
 	public void testIsWinnerHorizontal3() throws ColumnFullException, ColumnOutOfRangeException{
-		MyModel model = _model;
+		IModel model = _model;
 		model.addDisc(3, 1);
 		model.addDisc(1, 1);
 		model.addDisc(2, 1);
@@ -179,7 +179,7 @@ public class ModelTest {
 	
 	@Test
 	public void testIsWinnerVertical0() throws ColumnFullException, ColumnOutOfRangeException{
-		MyModel model = _model;
+		IModel model = _model;
 		model.addDisc(0, 1);
 		model.addDisc(0, 1);
 		model.addDisc(0, 1);
@@ -188,7 +188,7 @@ public class ModelTest {
 	
 	@Test
 	public void testIsWinnerVertical1() throws ColumnFullException, ColumnOutOfRangeException{
-		MyModel model = _model;
+		IModel model = _model;
 		model.addDisc(0, 1);
 		model.addDisc(0, 2);
 		model.addDisc(0, 1);
@@ -198,7 +198,7 @@ public class ModelTest {
 	
 	@Test
 	public void testIsWinnerVertical2() throws ColumnFullException, ColumnOutOfRangeException{
-		MyModel model = _model;
+		IModel model = _model;
 		model.addDisc(0, 1);
 		model.addDisc(0, 1);
 		model.addDisc(0, 2);
@@ -208,7 +208,7 @@ public class ModelTest {
 	
 	@Test
 	public void testIsWinnerVertical3() throws ColumnFullException, ColumnOutOfRangeException{
-		MyModel model = _model;
+		IModel model = _model;
 		model.addDisc(0, 2);
 		model.addDisc(0, 1);
 		model.addDisc(0, 1);
@@ -224,7 +224,7 @@ public class ModelTest {
 	 */
 	@Test
 	public void testIsWinnerDiagRight0() throws ColumnFullException, ColumnOutOfRangeException{
-		MyModel model = _model;
+		IModel model = _model;
 		model.addDisc(1, 2);
 		model.addDisc(2, 2);
 		model.addDisc(3, 2);
@@ -245,7 +245,7 @@ public class ModelTest {
 	 */
 	@Test
 	public void testIsWinnerDiagRight1() throws ColumnFullException, ColumnOutOfRangeException{
-		MyModel model = _model;
+		IModel model = _model;
 		model.addDisc(1, 2);
 		model.addDisc(2, 2);
 		model.addDisc(3, 2);
@@ -266,7 +266,7 @@ public class ModelTest {
 	 */
 	@Test
 	public void testIsWinnerDiagRight2() throws ColumnFullException, ColumnOutOfRangeException{
-		MyModel model = _model;
+		IModel model = _model;
 		model.addDisc(1, 2);
 		model.addDisc(2, 2);
 		model.addDisc(3, 2);
@@ -287,7 +287,7 @@ public class ModelTest {
 	 */
 	@Test
 	public void testIsWinnerDiagRight3() throws ColumnFullException, ColumnOutOfRangeException{
-		MyModel model = _model;
+		IModel model = _model;
 		model.addDisc(1, 2);
 		model.addDisc(2, 2);
 		model.addDisc(3, 2);
@@ -308,7 +308,7 @@ public class ModelTest {
 	 */
 	@Test
 	public void testIsWinnerDiagLeft0() throws ColumnFullException, ColumnOutOfRangeException{
-		MyModel model = _model;
+		IModel model = _model;
 		model.addDisc(0, 2);
 		model.addDisc(1, 2);
 		model.addDisc(2, 2);
@@ -329,7 +329,7 @@ public class ModelTest {
 	 */
 	@Test
 	public void testIsWinnerDiagLeft1() throws ColumnFullException, ColumnOutOfRangeException{
-		MyModel model = _model;
+		IModel model = _model;
 		model.addDisc(0, 2);
 		model.addDisc(1, 2);
 		model.addDisc(2, 2);
@@ -350,7 +350,7 @@ public class ModelTest {
 	 */
 	@Test
 	public void testIsWinnerDiagLeft2() throws ColumnFullException, ColumnOutOfRangeException{
-		MyModel model = _model;
+		IModel model = _model;
 		model.addDisc(0, 2);
 		model.addDisc(1, 2);
 		model.addDisc(2, 2);
@@ -371,7 +371,7 @@ public class ModelTest {
 	 */
 	@Test
 	public void testIsWinnerDiagLeft3() throws ColumnFullException, ColumnOutOfRangeException{
-		MyModel model = _model;
+		IModel model = _model;
 		model.addDisc(0, 2);
 		model.addDisc(1, 2);
 		model.addDisc(2, 2);
@@ -386,13 +386,13 @@ public class ModelTest {
 	
 	@Test
 	public void testGetObservable(){
-		MyModel model = _model;
+		IModel model = _model;
 		assertTrue("isWinner should be true", model.getObservable() instanceof Observable);
 	}
 	
 	@Test
 	public void testToString() throws ColumnFullException, ColumnOutOfRangeException{
-		MyModel model = _model;
+		IModel model = _model;
 		model.addDisc(0, 2);
 		model.addDisc(1, 1);
 		String s = model.toString();

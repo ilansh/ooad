@@ -38,7 +38,7 @@ public class AbstractDiscFactory {
 			//since map keys should be immutable.
 			//and the same goes for the discs in the factory. we don't want them to be changed
 			df = new DiscFactory(disc1.clone(), disc2.clone());
-			_factoriesPool.put(disc1.clone(), new DiscFactory(disc1.clone(), disc2.clone()));
+			_factoriesPool.put(disc1.clone(), df);
 		}
 		return df;
 	}

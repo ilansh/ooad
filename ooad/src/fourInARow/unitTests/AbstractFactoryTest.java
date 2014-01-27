@@ -84,8 +84,9 @@ public class AbstractFactoryTest {
 	public void testGetFactoryImplexistingImpl() throws NullArgumentNotPermittedException, InvalidPlayerNumException{ //singleton test
 		AbstractDiscFactory adf1 = AbstractDiscFactory.newInsance();
 		TestGraphic disc1 = new TestGraphic('x');
-		DiscFactory df = adf1.getFactoryImpl(disc1 , new TestGraphic('o'));
-		DiscFactory df2 = adf1.getFactoryImpl(disc1, new TestGraphic('o'));
+		TestGraphic disc2 = new TestGraphic('o');
+		DiscFactory df = adf1.getFactoryImpl(disc1, disc2);
+		DiscFactory df2 = adf1.getFactoryImpl(disc1, disc2);
 		assertNotNull("df should not be null", df);
 		assertEquals("df should be equal to df2 (same factory)", df, df2);
 	}
