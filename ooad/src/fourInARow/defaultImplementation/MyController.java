@@ -3,6 +3,8 @@ package fourInARow.defaultImplementation;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import org.hamcrest.core.IsEqual;
+
 import fourInARow.controller.AController;
 import fourInARow.excpetion.*;
 import fourInARow.model.*;
@@ -137,17 +139,21 @@ public class MyController extends AController{
 			initView2();
 		}
 		else if (choice == REMOVE_VIEW_KEY) {
-			removeView(_views.get(0));
+			if(!_views.isEmpty())
+				removeView(_views.get(0));
 		}
 		else if (choice == DECORATE_BOARD_KEY) {
 			CompositeGraphic b = new BorderBoard();
 			_views.get(0).decorate(null, b, _boards.get(0));
+			_boards.set(0, b);
 		}
 		else if (choice == DECORATE_DISC_KEY) {
 			CompositeGraphic d1 = new DiscDecorator();
 			CompositeGraphic d2 = new DiscDecorator();
 			_views.get(0).decorate(_boards.get(0), d1, _1discs.get(0));
 			_views.get(0).decorate(_boards.get(0), d2, _2discs.get(0));
+			_1discs.set(0, d1);
+			_2discs.set(0, d2);
 		}
 		else if (choice == QUIT_KEY) {
 			System.out.println("Bye bye!");
