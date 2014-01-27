@@ -33,8 +33,22 @@ public abstract class AController {
 		}
 	}
 
+	/*
+	 * A method for the client to implement
+	 * This method is called  from the initGame method in a loop until a true value is returned.
+	 */
 	protected abstract boolean mainMenu() throws Exception;
 
+	/**
+	 * play a single turn in the game.
+	 * This method should be called only after initGame.
+	 * @return The game status after this turn has been played.
+	 * @throws ColumnFullException
+	 * @throws ColumnOutOfRangeException
+	 * @throws NumberFormatException
+	 * @throws NullArgumentNotPermittedException
+	 * @throws GameNotOngoingException
+	 */
 	public GameStatus playTurn() throws ColumnFullException,
 			ColumnOutOfRangeException, NumberFormatException,
 			NullArgumentNotPermittedException, GameNotOngoingException {
@@ -51,6 +65,16 @@ public abstract class AController {
 		return _gameStatus;
 	}
 
+	/**
+	 *  Initialize the game.
+	 *  This method calls the mainMenu method implemented by the client,
+	 *  confirms that two players are set, and initializes the views.
+	 * @throws NullArgumentNotPermittedException
+	 * @throws TooManyPlayersException
+	 * @throws NoViewsConfiguredException
+	 * @throws NotEnoughPlayersException
+	 * @throws Exception
+	 */
 	public void initGame() throws NullArgumentNotPermittedException,
 			TooManyPlayersException, NoViewsConfiguredException,
 			NotEnoughPlayersException, Exception {
@@ -71,6 +95,11 @@ public abstract class AController {
 		_gameStatus = GameStatus.ONGOING;
 	}
 
+	/**
+	 * Add a view to the game.
+	 * @param view The view to add
+	 * @throws NullArgumentNotPermittedException
+	 */
 	public void addView(View view) throws NullArgumentNotPermittedException {
 		if (view == null) {
 			throw new NullArgumentNotPermittedException();
@@ -80,6 +109,11 @@ public abstract class AController {
 
 	}
 
+	/**
+	 * Remove a view from the game
+	 * @param view the view to remove
+	 * @throws NullArgumentNotPermittedException
+	 */
 	public void removeView(View view) throws NullArgumentNotPermittedException {
 		if (view == null) {
 			throw new NullArgumentNotPermittedException();
@@ -92,6 +126,9 @@ public abstract class AController {
 		return _gameStatus;
 	}
 
+	/**
+	 * To be called once the game is over, printing the result of the game.
+	 */
 	public void printEndMessage() {
 		if (_gameStatus == GameStatus.WIN) {
 			_currentPlayer.printWinMessage();
@@ -102,6 +139,14 @@ public abstract class AController {
 		}
 	}
 
+	/**
+	 * Add a player with the given strategy and name to the game.
+	 * This method should be called exactly twice before initializing the game (before initGame)
+	 * @param st PlayerStrategy implementation.
+	 * @param name Player's name
+	 * @throws NullArgumentNotPermittedException
+	 * @throws TooManyPlayersException
+	 */
 	public void addPlayer(PlayerStrategy st, String name)
 			throws NullArgumentNotPermittedException, TooManyPlayersException {
 		if (_player1 == null) {

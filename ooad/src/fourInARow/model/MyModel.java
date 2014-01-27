@@ -26,13 +26,6 @@ public class MyModel implements IModel {
 		_obs = new DelegatedObservable();
 	}
 
-	/**
-	 * 
-	 * @param col
-	 * @param playerNum
-	 * @return
-	 * @throws ColumnFullException
-	 */
 	@Override
 	public GameStatus addDisc(int col, int playerNum)
 			throws ColumnFullException, ColumnOutOfRangeException {
