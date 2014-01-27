@@ -11,6 +11,8 @@ public aspect GameLogger {
 	private static PrintWriter _logStream = null;
 
 	private long _turnStartTime;
+	
+	private static int _curPlayer = 1;
 
 	public static void initLogStream(PrintWriter logStream) {
 		_logStream = logStream;
@@ -30,7 +32,9 @@ public aspect GameLogger {
 	}
 
 	before(): startTurn(){
-		_turnStartTime = System.currentTimeMillis();
+		if (_turnStartTime == 0) { // reset only after valid turn
+			_turnStartTime = System.currentTimeMillis();
+		}
 	}
 
 	after(int col, int playerNum) returning(GameStatus gameStatus): makeMove(col, playerNum) {
@@ -41,30 +45,32 @@ public aspect GameLogger {
 		_logStream.println("Player " + playerNum + " put a disc in column "
 				+ col + ". Turn duration: " + minutes + "m:" + seconds + "s:"
 				+ millis + "ms");
+		_logStream.println();
 
 		if (gameStatus == GameStatus.DRAW) {
 			_logStream.println("Game ended with a draw.");
 		} else if (gameStatus == GameStatus.WIN) {
 			_logStream.println("Player " + playerNum + " has won the game!");
 		}
+		_logStream.println("================================================");
+		_curPlayer ^= 3; //switch turn with xor
+		_turnStartTime = 0;
 	}
 
 	after(int col, int playerNum) throwing: makeMove(col, playerNum) {
-		_logStream.println("Player " + playerNum + " invalid choice at column "
-				+ col + ", restarting turn timer.");
+		_logStream.println("Player " + playerNum + " made an illegal choice at column "
+				+ col);
 	}
 
 	after() throwing (NumberFormatException nfe): startTurn() {
-			_logStream
-					.println("invalid column choice, a numerical entry is required, restarting turn timer.");
+		_logStream
+				.println("Player " + _curPlayer + " made a non-numerical column choice.");
 	}
-
 
 	after(Object board): drawTurnBoard(board){
 		int[][] b = (int[][]) board;
 
 		StringBuffer sb = new StringBuffer();
-		_logStream.println();
 		for (int i = 0; i < b.length; i++) {
 			sb.append('|');
 			for (int j = 0; j < b[0].length; j++) {

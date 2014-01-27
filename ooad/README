@@ -46,10 +46,20 @@ Exceptions
 We mainly used exceptions so our library will be relatively foolproof, but only implemented the most basic Exception structure possible (since it is less important for the exercise and its requirements).
 
 
-Logging
+Dynamic Proxy
+--------------
+As stated above, our dynamic proxy is set on the model and outputs to a file called model.log in the following format:
+Method call: MethodName (Type1, Type2, ...)
+argument details:
+1. arg1
+2. arg2
+...
+
+AspectJ
 --------
-As stated above, our dynamic proxy is set on the model and outputs to a file called model.log.
-We also used aspectJ as required to log the game progress and turn times.
+AspectJ was also used for logging as required.
+Our aspect is responsible for logging the game progress and turn times.
+Note that we measured turn times 
 
 Unit tests
 -----------
