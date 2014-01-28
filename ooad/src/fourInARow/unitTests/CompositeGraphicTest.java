@@ -7,9 +7,7 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import fourInARow.unitTests.DiscFactoryTest.TestGraphic;
 import fourInARow.view.CompositeGraphic;
-import fourInARow.view.DiscFactory;
 import fourInARow.view.IGameGraphic;
 
 public class CompositeGraphicTest {
@@ -39,7 +37,6 @@ public class CompositeGraphicTest {
 		
 		@Override
 		public void drawGraphic(int[][] board) {
-//			System.out.println("x");
 			
 		}
 		

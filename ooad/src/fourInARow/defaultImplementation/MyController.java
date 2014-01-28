@@ -3,7 +3,6 @@ package fourInARow.defaultImplementation;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import org.hamcrest.core.IsEqual;
 
 import fourInARow.controller.AController;
 import fourInARow.excpetion.*;

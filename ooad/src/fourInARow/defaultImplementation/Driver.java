@@ -9,8 +9,6 @@ import fourInARow.model.*;
 
 public class Driver {
 
-	public static final String LOG_ENABLED = "--log";
-
 
 	public static void runGame(AController controller, IModel model)
 			throws Exception {
@@ -47,7 +45,7 @@ public class Driver {
 		PrintWriter gameLog = new PrintWriter("game.log", "UTF-8");
 		GameLogger.initLogStream(gameLog);
 
-		MyModel model = new MyModel(5, 6);
+		MyModel model = new MyModel(7, 6);
 		IModel loggedModel = (IModel)LoggingProxy.newInstance(model, modelLog);
      	AController controller = new MyController(loggedModel);
 				
